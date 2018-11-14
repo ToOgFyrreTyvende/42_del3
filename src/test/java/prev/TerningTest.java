@@ -1,4 +1,7 @@
+package prev;
+
 import org.junit.jupiter.api.Test;
+import prev.Terning;
 
 import java.util.Random;
 

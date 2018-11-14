@@ -1,10 +1,12 @@
+package prev;
+
 /**
  * ------------------------------------------------------------/
  * Denne klasse bruges til at kaste 'x' antal terninger
  * med 'x' antal sider på hver
  * 
  * Klassen kaldes uden nogle parametre, eller med to parametre
- * fx. Terning() eller Terning(antalSider, antal)
+ * fx. prev.Terning() eller prev.Terning(antalSider, antal)
  * hvor 'antalSider' er antallet af sider på terningen
  * og 'antal' er antallet af terninger der kastes.
  * ------------------------------------------------------------/

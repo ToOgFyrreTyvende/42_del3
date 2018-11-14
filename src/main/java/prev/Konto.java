@@ -1,3 +1,5 @@
+package prev;
+
 /**
  * ------------------------------------------------------------/
  * Denne klasse holder styr på pengebeholdningen for

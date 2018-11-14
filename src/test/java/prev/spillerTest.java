@@ -1,4 +1,7 @@
+package prev;
+
 import org.junit.jupiter.api.Test;
+import prev.Spiller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
