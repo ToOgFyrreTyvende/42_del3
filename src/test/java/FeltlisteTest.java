@@ -1,7 +1,5 @@
-package prev;
-
 import org.junit.jupiter.api.Test;
-import prev.Feltliste;
+import Feltliste;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author andersm
  *
- * Tester prev.Feltliste udfra den danske oversættelse
+ * Tester Feltliste udfra den danske oversættelse
  */
 
 public class FeltlisteTest {

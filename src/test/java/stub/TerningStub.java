@@ -1,4 +1,4 @@
-package prev.stub;
+package stub;
 
 /**
  * terningStub

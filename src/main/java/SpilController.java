@@ -1,5 +1,3 @@
-package prev;
-
 public class SpilController{
     private Spil spil;
     

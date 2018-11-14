@@ -1,7 +1,5 @@
-package prev;
-
 import org.junit.jupiter.api.Test;
-import prev.Konto;
+import Konto;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

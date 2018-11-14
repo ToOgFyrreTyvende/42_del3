@@ -1,9 +1,7 @@
-package prev;
-
 import org.junit.jupiter.api.Test;
-import prev.Feltliste;
-import prev.Spil;
-import prev.Spiller;
+import Feltliste;
+import Spil;
+import Spiller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
