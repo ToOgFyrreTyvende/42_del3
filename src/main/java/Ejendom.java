@@ -11,8 +11,12 @@ public class Ejendom extends Aktiv implements Felt {
 
     }
 
-    @Override
-    public void opdater(FeltOpdater rule) {
 
+    public int getLeje() {
+        return leje;
+    }
+
+    public void setLeje(int leje) {
+        this.leje = leje;
     }
 }
