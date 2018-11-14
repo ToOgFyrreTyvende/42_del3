@@ -1,5 +1,5 @@
+import Model.Terning;
 import org.junit.jupiter.api.Test;
-import Terning;
 
 import java.util.Random;
 

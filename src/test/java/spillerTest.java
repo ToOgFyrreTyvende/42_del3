@@ -1,5 +1,5 @@
+import Model.Spiller;
 import org.junit.jupiter.api.Test;
-import Spiller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

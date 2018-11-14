@@ -1,5 +1,5 @@
+import Model.Konto;
 import org.junit.jupiter.api.Test;
-import Konto;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

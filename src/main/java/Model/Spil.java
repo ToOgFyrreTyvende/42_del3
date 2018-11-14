@@ -1,3 +1,5 @@
+package Model;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class Spil {
     private int vinderPenge = 3000;
 
     // #----------Constructor----------#
-    Spil(String spiller1navn, String spiller2navn){
+    public Spil(String spiller1navn, String spiller2navn){
         this.spillere = new Spiller[]{
             new Spiller(spiller1navn), 
             new Spiller(spiller2navn)

@@ -1,3 +1,5 @@
+package Model;
+
 import java.util.ArrayList;
 /**
  * ------------------------------------------------------------/
@@ -13,7 +15,7 @@ public class Runde {
 
 
     // #----------Constructor----------#
-    Runde(){
+    public Runde(){
         ture = new ArrayList<>();
     }
 
@@ -23,7 +25,7 @@ public class Runde {
     }
 
     // #-------------Other-------------#
-    void tilfoejTur(int[] tur ){
+    public void tilfoejTur(int[] tur ){
         this.ture.add(tur);
     }
 }
