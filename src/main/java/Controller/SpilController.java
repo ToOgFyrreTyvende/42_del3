@@ -13,8 +13,20 @@ public class SpilController{
     // #----------Constructor----------#
     public SpilController(){
         this.view = new GameGUIView();
+        initialiserSpil();
+
+    }
+
+    private void initialiserSpil(){
         // pga. abstrakt klasse, har vi polymorfi, og kan kalde "getantalspillere" for ethvert view
-        System.out.println(this.view.getAntalSpillere());
+        int spillerAntal = this.view.getAntalSpillere();
+        String[] spillerNavne = new String[spillerAntal];
+
+        for (int i = 0; i < spillerAntal; i++) {
+            spillerNavne[i] = (this.view.getSpillerNavn(i + 1));
+        }
+
+        spil = new Spil(spillerNavne);
     }
 
     public SpilController(String spiller1, String spiller2){

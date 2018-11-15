@@ -39,6 +39,29 @@ public class Spil {
         afsluttet = false;
     }
 
+    public Spil(String[] spillerNavne){
+        opretSpillere(spillerNavne);
+
+        //Kodedelen med runder er taget fra vores forrige opgave: 42_del1
+        runder = new ArrayList<>();
+        runder.add(new Runde());
+        terning = new Terning();
+
+        aktivSpiller = spillere[0];
+        aktivRunde = runder.get(runder.size()-1);
+
+        afsluttet = false;
+    }
+
+    private void opretSpillere(String[] spillerNavne){
+        Spiller[] spillere = new Spiller[spillerNavne.length];
+        for (int i = 0; i < spillerNavne.length; i++) {
+            spillere[i] = new Spiller(spillerNavne[i]);
+        }
+
+        this.spillere = spillere;
+    }
+
     
     public String spilTur(){
         if (!afsluttet) {
