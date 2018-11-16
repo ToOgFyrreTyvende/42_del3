@@ -1,6 +1,4 @@
 import Controller.SpilController;
-import gui_fields.GUI_Board;
-import gui_main.GUI;
 
 /**
  * ------------------------------------------------------------/ 
