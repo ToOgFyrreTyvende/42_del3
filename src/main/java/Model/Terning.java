@@ -19,13 +19,13 @@ public class Terning {
     // #----------Constructor----------#
     public Terning() {
         this.antalSider = 6;
-        this.antal = 2;
+        this.antal = 1;
     }
     public Terning(int antalSider, int antal) {
         this.antalSider = antalSider;
         this.antal = antal;
     }
-    
+
     // #--------------Get--------------#
     public int[] getResultat(){ // Returner en værdi af terningen.
         int[] kast = new int[antal+1];
