@@ -37,5 +37,5 @@
     "Chance": {"Type": "Chance", "Navn": "Chance", "Teskt": "Træk et chancekort", "Farve": "White"},
 
     "Vandlandet": {"Type": "Street","Navn": "Vandlandet", "Pris": 5, "Farve": "Navy"},
-    "Strandpromenaden": {"Type": "Street","Navn": "Strandpromenaden", "Pris": 5, "Farve": "Navy"},
+    "Strandpromenaden": {"Type": "Street","Navn": "Strandpromenaden", "Pris": 5, "Farve": "Navy"}
 }
