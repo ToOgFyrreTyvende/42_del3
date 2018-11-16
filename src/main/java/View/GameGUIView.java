@@ -23,19 +23,19 @@ public class GameGUIView extends GameView {
         int var2 = i + 1;
         // Der er GUI_Street, GUI_Chance, GUI_Tax, GUI_Shipping, GUI_Jail, GUI_brewery
         fields[i] = new GUI_Start("Start", "Modtag: 2 M", "Modtag 2M,-\n når de passerer start", Color.RED, Color.BLACK);
-        fields[var2++] = new GUI_Street("Burgerbaren", "Pris:  1M", "RÃ¸dovrevej", "Leje:  1M", new Color(75, 155, 225), Color.BLACK);
+        fields[var2++] = new GUI_Street("Burgerbaren", "Pris:  1M", "Burgerbaren", "Leje:  1M", new Color(75, 155, 225), Color.BLACK);
         fields[var2++] = new GUI_Street("Pizzahuset","Pris: 1M","", "Ta' et chancekort.", new Color(204, 204, 204), Color.BLACK);
-        fields[var2++] = new GUI_Tax("Sjanse\nChance","","", Color.WHITE, Color.BLACK);
-        fields[var2++] = new GUI_Shipping("default", "Ã˜resund", "Pris:  200", "Ã˜resundsredderiet", "Leje:  75", Color.WHITE, Color.BLACK);
+        fields[var2++] = new GUI_Tax("Chance","","", Color.WHITE, Color.BLACK);
+        fields[var2++] = new GUI_Shipping("default", "Øresund", "Pris:  200", "Øresundsredderiet", "Leje:  75", Color.WHITE, Color.BLACK);
         fields[var2++] = new GUI_Street("Roskildevej", "Pris:  100", "Roskildevej", "Leje:  40", new Color(255, 135, 120), Color.BLACK);
         fields[var2++] = new GUI_Street("Valby\nLanggade", "Pris:  100", "Valby Langgade", "Leje:  40", new Color(255, 135, 120), Color.BLACK);
-        fields[var2++] = new GUI_Street("Allégade", "Pris:  120", "AllÃ©gade", "Leje:  45", new Color(255, 135, 120), Color.BLACK);
-        fields[var2++] = new GUI_Jail("default", "Fængsel", "Fængsel", "PÃ¥ besÃ¸g i fÃ¦ngslet", new Color(125, 125, 125), Color.BLACK);
-        fields[var2++] = new GUI_Street("Frederiks-\nberg AllÃ©", "Pris:  140", "Frederiksberg AllÃ©", "Leje:  50", new Color(102, 204, 0), Color.BLACK);
+        fields[var2++] = new GUI_Street("Allégade", "Pris:  120", "Allégade", "Leje:  45", new Color(255, 135, 120), Color.BLACK);
+        fields[var2++] = new GUI_Jail("default", "Fængsel", "Fængsel", "På besøg i fængslet", new Color(125, 125, 125), Color.BLACK);
+        fields[var2++] = new GUI_Street("Frederiks-\nberg Allé", "Pris:  140", "Frederiksberg Allé", "Leje:  50", new Color(102, 204, 0), Color.BLACK);
         fields[var2++] = new GUI_Brewery("default", "Tuborg", "Pris:  150", "Tuborg bryggeri", "10 x [Terningslag]", Color.BLACK, Color.WHITE);
-        fields[var2++] = new GUI_Street("BÃ¼lowsvej", "Pris:  140", "BÃ¼lowsvej", "Leje:  50", new Color(102, 204, 0), Color.BLACK);
-        fields[var2++] = new GUI_Street("Gammel Kongevej", "Pris:  140", "Gammel Kongevej", "Leje:  50", new Color(102, 204, 0), Color.BLACK);
+        fields[var2++] = new GUI_Street("Bülowsvej", "Pris:  140", "Bülowsvej", "Leje:  50", new Color(102, 204, 0), Color.BLACK);
         fields[var2++] = new GUI_Shipping("default", "D.F.D.S.", "Pris:  200", "D.F.D.S.", "Leje:  75", Color.WHITE, Color.BLACK);
+        fields[var2++] = new GUI_Street("Gammel Kongevej", "Pris:  140", "Gammel Kongevej", "Leje:  50", new Color(102, 204, 0), Color.BLACK);
         fields[var2++] = new GUI_Shipping("default", "D.F.D.S.", "Pris:  200", "D.F.D.S.", "Leje:  75", Color.WHITE, Color.BLACK);
         fields[var2++] = new GUI_Shipping("default", "D.F.D.S.", "Pris:  200", "D.F.D.S.", "Leje:  75", Color.WHITE, Color.BLACK);
         fields[var2++] = new GUI_Shipping("default", "D.F.D.S.", "Pris:  200", "D.F.D.S.", "Leje:  75", Color.WHITE, Color.BLACK);
