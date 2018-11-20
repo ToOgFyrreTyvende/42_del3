@@ -1,3 +1,4 @@
+import Model.Feltliste;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author andersm
  *
- * Tester Feltliste udfra den danske oversættelse
+ * Tester Model.Feltliste udfra den danske oversættelse
  */
 
 public class FeltlisteTest {

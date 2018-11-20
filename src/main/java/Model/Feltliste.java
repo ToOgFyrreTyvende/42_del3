@@ -1,3 +1,5 @@
+package Model;
+
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -35,16 +37,16 @@ public class Feltliste{
     };
 
     // #--------------Get--------------#
-    static int getFeltPenge(int felt){
+    public static int getFeltPenge(int felt){
         int penge = Integer.parseInt(feltliste[felt][1]);
         return penge;
     }
 
-    static String getFeltTekst(int felt){
+    public static String getFeltTekst(int felt){
         return feltTekst.getString(feltliste[felt][0]);
     }
 
-    static boolean getEkstraTur(int felt){
+    public static boolean getEkstraTur(int felt){
         return Boolean.parseBoolean(feltliste[felt][2]);
     }
 

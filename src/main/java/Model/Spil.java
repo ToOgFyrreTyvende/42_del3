@@ -1,3 +1,5 @@
+package Model;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class Spil {
     private int vinderPenge = 3000;
 
     // #----------Constructor----------#
-    Spil(String spiller1navn, String spiller2navn){
+    public Spil(String spiller1navn, String spiller2navn){
         this.spillere = new Spiller[]{
             new Spiller(spiller1navn), 
             new Spiller(spiller2navn)
@@ -35,6 +37,29 @@ public class Spil {
         aktivRunde = runder.get(runder.size()-1);
 
         afsluttet = false;
+    }
+
+    public Spil(String[] spillerNavne){
+        opretSpillere(spillerNavne);
+
+        //Kodedelen med runder er taget fra vores forrige opgave: 42_del1
+        runder = new ArrayList<>();
+        runder.add(new Runde());
+        terning = new Terning();
+
+        aktivSpiller = spillere[0];
+        aktivRunde = runder.get(runder.size()-1);
+
+        afsluttet = false;
+    }
+
+    private void opretSpillere(String[] spillerNavne){
+        Spiller[] spillere = new Spiller[spillerNavne.length];
+        for (int i = 0; i < spillerNavne.length; i++) {
+            spillere[i] = new Spiller(spillerNavne[i]);
+        }
+
+        this.spillere = spillere;
     }
 
     

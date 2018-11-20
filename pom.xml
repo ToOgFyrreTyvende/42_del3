@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dk.dtu.02315.2018.42</groupId>
-    <artifactId>42_del2</artifactId>
+    <artifactId>42_del3</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <!-- Tak til https://stackoverflow.com/questions/20457368/plugins-unrecognized-tag-in-pom-xml for at
@@ -25,6 +25,7 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
             <plugin>
@@ -75,12 +76,29 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>Matador_GUI-repository</id>
+            <url>https://github.com/diplomit-dtu/Matador_GUI/raw/repository</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
+
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>${junit-5.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>diplomitdtu</groupId>
+            <artifactId>matadorgui</artifactId>
+            <version>3.1.1</version>
         </dependency>
     </dependencies>
  

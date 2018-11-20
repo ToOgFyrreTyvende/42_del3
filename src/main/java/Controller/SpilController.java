@@ -1,17 +1,44 @@
+package Controller;
+
+import Model.Spil;
+import Model.Spiller;
+import Model.Feltliste;
+import View.GameGUIView;
+import View.GameView;
+
 public class SpilController{
     private Spil spil;
+    private GameView view;
     
     // #----------Constructor----------#
-    SpilController(String spiller1, String spiller2){
+    public SpilController(){
+        this.view = new GameGUIView();
+        initialiserSpil();
+
+    }
+
+    private void initialiserSpil(){
+        // pga. abstrakt klasse, har vi polymorfi, og kan kalde "getantalspillere" for ethvert view
+        int spillerAntal = this.view.getAntalSpillere();
+        String[] spillerNavne = new String[spillerAntal];
+
+        for (int i = 0; i < spillerAntal; i++) {
+            spillerNavne[i] = (this.view.getSpillerNavn(i + 1));
+        }
+
+        spil = new Spil(spillerNavne);
+    }
+
+    public SpilController(String spiller1, String spiller2){
         this.spil = new Spil(spiller1, spiller2);
     }
 
     // #--------------Get--------------#
-    String getAktivSpiller() {
+    public String getAktivSpiller() {
         return this.spil.getAktivSpiller().getNavn();
     }
 
-    String getSlutTekst() {
+    public String getSlutTekst() {
         if (!this.spil.spilAktivt()) {
             Spiller vinder = this.spil.getVinder();
             return String.format(Feltliste.feltTekst.getString("YouWon"), vinder.getNavn(), vinder.getPenge());
@@ -21,11 +48,11 @@ public class SpilController{
     }
 
     // #-------------Other-------------#    
-    void start() {
+    public void start() {
         System.out.println(Feltliste.feltTekst.getString("GameBegun"));
     }
 
-    String kastTerning(){
+    public String kastTerning(){
         if(!this.spil.spilAktivt()){
             System.out.println();
             Spiller vinder = this.spil.getVinder();
@@ -46,7 +73,7 @@ public class SpilController{
         }
     }
 
-    boolean spilAktivt(){
+    public boolean spilAktivt(){
         return spil.spilAktivt();
     }
 

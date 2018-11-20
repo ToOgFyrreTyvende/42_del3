@@ -1,3 +1,5 @@
+package Model;
+
 /**
  * ------------------------------------------------------------/
  * Denne klasse holder styr på pengebeholdningen for
@@ -9,28 +11,28 @@ public class Konto {
     private int pengebeholdning;
 
     // #----------Constructor----------#
-    Konto(){
+    public Konto(){
         // Default pengebeholdning: 1000.
         pengebeholdning = 1000;
     }
-    Konto(int pengebeholdning){
+    public Konto(int pengebeholdning){
         // Vælg pengebeholdning selv.
         this.pengebeholdning = pengebeholdning;
     }
 
     // #--------------Get--------------#
-    int getPenge(){
+    public int getPenge(){
         // Returner pengebeholdning.
         return (pengebeholdning);
     }
 
     // #--------------Set--------------#
-    void setPenge(int penge){
+    public void setPenge(int penge){
         this.pengebeholdning = penge; 
     }
 
     // #-------------Other-------------#
-    int indsaetpenge(int penge){
+    public int indsaetpenge(int penge){
         // Tilføj et antal penge til pengebeholdningen.
         if((pengebeholdning +  penge) > 0){
             pengebeholdning += penge;
