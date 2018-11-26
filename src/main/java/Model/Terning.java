@@ -26,13 +26,11 @@ public class Terning {
     }
 
     // #--------------Get--------------#
-    public int slaaTerning(){
+    public int getResultat(){
         int sum = 0;
-        for (int i =0;i>antal; i++) {
             float _random1 = (float) Math.random();         // 0-1 float
             int _random2 = (int) (_random1 * antalSider);   // 0-5 integer
             sum = _random2 + 1;                      // 1-6 integer
-        }
         return sum;
     }
     public int getAntalSider() {
