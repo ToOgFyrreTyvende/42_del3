@@ -11,18 +11,24 @@ package Model;
 public class Felt {
     private String navn, subText, beskrivelse;
 
-    //###############Constructor##################
+    // #----------Constructor----------#
     public Felt(String navn, String subText, String beskrivelse){
         this.navn=navn;
         this.subText=subText;
         this.beskrivelse=beskrivelse;
     }
-    //###################Get######################
+
+    // #--------------Get--------------#
     public String Felte(){
         String help="help";
         return help;
     }
-    //#################Get/Set####################
+
+    public String getBeskrivelse() {
+        return beskrivelse;
+    }
+
+    // #--------------Set--------------#
     public String getNavn() {
         return navn;
     }
@@ -37,10 +43,6 @@ public class Felt {
 
     public void setSubText(String subText) {
         this.subText = subText;
-    }
-
-    public String getBeskrivelse() {
-        return beskrivelse;
     }
 
     public void setBeskrivelse(String beskrivelse) {
