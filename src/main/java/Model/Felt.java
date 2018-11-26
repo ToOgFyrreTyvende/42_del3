@@ -8,42 +8,28 @@ package Model;
  *-------------------------------------------------
  */
 
-public class Felt {
-    private String navn, subText, beskrivelse;
+public abstract class Felt {
+    protected String navn, subText, beskrivelse;
 
-    //###############Constructor##################
+    // #----------Constructor----------#
     public Felt(String navn, String subText, String beskrivelse){
         this.navn=navn;
         this.subText=subText;
         this.beskrivelse=beskrivelse;
     }
-    //###################Get######################
-    public String Felte(){
-        String help="help";
-        return help;
-    }
-    //#################Get/Set####################
+
+    // #--------------Get--------------#
     public String getNavn() {
         return navn;
-    }
-
-    public void setNavn(String navn) {
-        this.navn = navn;
     }
 
     public String getSubText() {
         return subText;
     }
 
-    public void setSubText(String subText) {
-        this.subText = subText;
-    }
-
     public String getBeskrivelse() {
         return beskrivelse;
     }
 
-    public void setBeskrivelse(String beskrivelse) {
-        this.beskrivelse = beskrivelse;
-    }
+
 }
