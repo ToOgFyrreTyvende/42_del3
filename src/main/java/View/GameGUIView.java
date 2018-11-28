@@ -1,24 +1,28 @@
 package View;
 
-import gui_codebehind.GUI_FieldFactory;
+import Model.Spil;
+import Model.Spiller;
 import gui_fields.*;
 import gui_main.GUI;
 
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Random;
 
 public class GameGUIView extends GameView {
     private GUI ui;
+    private GUI_Field[] fields;
+
+    private HashMap<Spiller, GUI_Player> spillere;
 
     public GameGUIView() {
         this.ui = new GUI(makeFields());
         ui.setDice(3,2);
 
-        //System.out.println((GUI_Street)this.ui.getFields()[2]);
-
-
     }
-    public static GUI_Field[] makeFields() {
-        GUI_Field[] fields = new GUI_Field[24];
+
+    private GUI_Field[] makeFields() {
+        fields = new GUI_Field[24];
         int i = 0;
         int var2 = i + 1;
         // Der er GUI_Street, GUI_Chance, GUI_Tax, GUI_Shipping, GUI_Jail, GUI_brewery
@@ -57,5 +61,51 @@ public class GameGUIView extends GameView {
     @Override
     public String getSpillerNavn(int nr) {
         return ui.getUserString("Indtast venligst spiller " + nr + "s navn.");
+    }
+
+
+    @Override
+    public String getRundeValg(String... valg) {
+        return ui.getUserSelection("Foretag venligst en handling.", valg);
+    }
+
+    @Override
+    public String getRundeValgMedTekst(String tekst, String... valg) {
+        return ui.getUserSelection(tekst, valg);
+    }
+
+    @Override
+    public void setSpillere(Spiller ... spillereModel) {
+        //this.spillere = new GUI_Player[spillereModel.length];
+        //Random rand = new Random();
+
+        for (Spiller spiller : spillereModel) {
+            //double r = rand.nextFloat() / 2f + 0.5
+            //double g = rand.nextFloat() / 2f + 0.5;
+            //double b = rand.nextFloat() / 2f + 0.5;
+            //GUI_Car tempcar = new GUI_Car();
+            //tempcar.setPrimaryColor(new Color((float)r, (float)g, (float)b));
+
+            this.spillere.put(spiller, new GUI_Player(spiller.getNavn(), spiller.getPenge()));
+            ui.addPlayer(this.spillere.get(spiller));
+        }
+    }
+
+    @Override
+    public void resetBoard() {
+        this.spillere.forEach((spillerModel, spillerBrik) -> this.fields[0].setCar(spillerBrik, true));
+    }
+
+    @Override
+    public void setSpillerFelt(Spiller spillerModel, int felt) {
+        int feltIndex = (felt % 24) -1;
+        GUI_Player spillerGUI = this.spillere.get(spillerModel);
+
+        this.fields[feltIndex].setCar(spillerGUI, true);
+    }
+
+    @Override
+    public void setSpillerPenge(Spiller spiller, int penge) {
+        this.spillere.get(spiller).setBalance(penge);
     }
 }

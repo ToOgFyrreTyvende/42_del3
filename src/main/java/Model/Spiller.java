@@ -1,5 +1,7 @@
 package Model;
 
+import gui_fields.GUI_Player;
+
 /**
  * ------------------------------------------------------------/
  * Denne klasse kaldes for at oprette en ny spiller

@@ -27,6 +27,8 @@ public class SpilController{
         }
 
         spil = new Spil(spillerNavne);
+        this.view.setSpillere(spil.getSpillere());
+        this.view.resetBoard();
     }
 
     public SpilController(String spiller1, String spiller2){
@@ -49,7 +51,7 @@ public class SpilController{
 
     // #-------------Other-------------#    
     public void start() {
-        System.out.println(Feltliste.feltTekst.getString("GameBegun"));
+        view.getRundeValgMedTekst(Feltliste.feltTekst.getString("GameBegun"), "Ok");
     }
 
     public String kastTerning(){
