@@ -20,24 +20,12 @@ public class Spil {
     private Runde aktivRunde;    
     private boolean afsluttet;
 
-    private int vinderPenge = 3000;
+    private int pengeHvis2 = 20;
+    private int pengeHvis3 = 18;
+    private int pengeHvis4 = 16;
+    private int startPenge;
 
     // #----------Constructor----------#
-    public Spil(String spiller1navn, String spiller2navn){
-        this.spillere = new Spiller[]{
-            new Spiller(spiller1navn), 
-            new Spiller(spiller2navn)
-        };
-        //Kodedelen med runder er taget fra vores forrige opgave: 42_del1    
-        runder = new ArrayList<>();
-        runder.add(new Runde());
-        terning = new Terning();
-
-        aktivSpiller = spillere[0];
-        aktivRunde = runder.get(runder.size()-1);
-
-        afsluttet = false;
-    }
 
     public Spil(String[] spillerNavne){
         opretSpillere(spillerNavne);
@@ -54,9 +42,15 @@ public class Spil {
     }
 
     private void opretSpillere(String[] spillerNavne){
+
+        if (spillere.length == 2) {startPenge = pengeHvis2;}
+        else if (spillere.length == 3) {startPenge = pengeHvis3;}
+        else if (spillere.length == 4) {startPenge = pengeHvis4;}
+
         Spiller[] spillere = new Spiller[spillerNavne.length];
         for (int i = 0; i < spillerNavne.length; i++) {
             spillere[i] = new Spiller(spillerNavne[i]);
+            spillere[i].setPenge(startPenge);
         }
 
         this.spillere = spillere;
@@ -69,24 +63,14 @@ public class Spil {
             int nyIndex = (nuIndex + 1) % spillere.length;
             int slag = terning.getResultat();
             int[] tempTur = {slag, nuIndex};
-            boolean ekstraTur;
 
             Spiller _aktivSpiller = aktivSpiller;
-
-            int feltFraSlag = slag - 2;
-            int pengeFraFelt = getFeltPenge(feltFraSlag);
-
-            ekstraTur = Feltliste.getEkstraTur(feltFraSlag);
-            
-            aktivSpiller.addPenge(pengeFraFelt);
-            aktivSpiller.setFelt(feltFraSlag);
 
             aktivRunde.tilfoejTur(tempTur);
             this.aktivSpiller = spillere[nyIndex];
             
             // vinder skal have 3000 guld for at vinde, dette tjekkes her
-            checkRunde(nuIndex);
-            tjekEkstraTur(ekstraTur, nuIndex);
+            checkRunde();
 
             return String.format(Feltliste.feltTekst.getString("TurnsRolled"),
                     _aktivSpiller.getNavn(), slag);
@@ -95,91 +79,33 @@ public class Spil {
         }
     }
 
-    public void tjekEkstraTur(boolean ekstraTur, int spillerIndex) {
-        if(ekstraTur){
-            aktivSpiller = spillere[spillerIndex];
-        }
-    }
-
     //godt og grundigt Yoinked direkte fra vores 42_del1 af CDIO
-    public void checkRunde(int spillerIndex){
+    public void checkRunde(){
         // Vi tjekker om den nuværende spiller er den sidste psiller i spiller listen. Dette gør, at 
         // alle spillere har mulighed for at vinde i slutningen af en runde
-        if (spillerIndex == spillere.length - 1){
-            Spiller muligVinder = spillerMedPenge(vinderPenge);
-            if(muligVinder != null){
-                this.setVinder(muligVinder);
-                this.slutSpil();
-            }
-            else {
-                this.runder.add(new Runde());
-                this.aktivRunde   = runder.get(runder.size() - 1);
-            }
-            
-        }
-    }
-    
-    private Spiller spillerMedPenge(int penge){
-        int fundet = 0;
-        int res    = 0;
-        
-        for(int i = 0; i < spillere.length; i++) {
-            if (spillere[i].getPenge() >= penge) {
-                fundet++;
-                res = i;
+
+        for (int i = 0; i < spillere.length; i++) {
+            if (spillere[i].getPenge() <= 0){
+                afsluttet = true;
             }
         }
+    }
 
-        if (fundet == 1) {
-            return spillere[res];
+    public Spiller findVinder() {
+
+        Spiller højest = null;
+
+        if (afsluttet) {
+            int max = 0;
+
+
+            for (int i = 0; i < spillere.length; i++) {
+                if (spillere[i].getPenge() > max) {
+                    max = spillere[i].getPenge();
+                    højest = spillere[i];
+                }
+            }
         }
-        else if (fundet > 1) {
-            if (spillere[0].getPenge() > spillere[1].getPenge()) {
-                return (spillere[0]);
-            }
-            else if (spillere[0].getPenge() < spillere[1].getPenge()){
-                return (spillere[1]);
-            }
-            else{
-                return null;
-            }
-        }
-        else
-            return null;
-    }
-
-    // #--------------Get--------------#
-    private int getFeltPenge(int felt){
-        return Feltliste.getFeltPenge(felt);
-    }
- 
-    public Spiller getAktivSpiller(){
-        return aktivSpiller;
-    }
-
-    public Spiller getVinder(){
-        return this.vinder;
-    }
-
-    public Spiller[] getSpillere() {
-        return this.spillere;
-    }
-
-    public int getVinderPenge(){ return vinderPenge; }
-
-    // #-------------Set---------------#
-
-    private void setVinder(Spiller vinder){
-        this.vinder = vinder;
-    }
-
-    // #-------------Other-------------#
-
-    public boolean spilAktivt(){
-        return !afsluttet;
-    }
-
-    private void slutSpil(){
-        this.afsluttet = true;
+        return (højest);
     }
 }

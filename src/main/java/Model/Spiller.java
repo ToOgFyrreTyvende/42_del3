@@ -15,13 +15,12 @@ import gui_fields.GUI_Player;
 public class Spiller {
     private int felt;
     private String navn;
-    private Konto konto;
+    private int pengebeholdning = 1;
 
     // #----------Constructor----------#
     public Spiller(String navn){
         // Vælg spiller navn selv
         this.navn = navn;
-        this.konto = new Konto();
     }
 
     // #------------Get/Set------------#
@@ -36,11 +35,11 @@ public class Spiller {
     }
 
     public int getPenge(){
-        return konto.getPenge();
+        return this.pengebeholdning;
     }
 
     public void setPenge(int penge){
-        this.konto.setPenge(penge); 
+        this.pengebeholdning = penge;
     }
     
     // #--------------Get--------------#
@@ -51,6 +50,6 @@ public class Spiller {
 
     // #-------------Other-------------#
     public void addPenge(int penge){
-        this.konto.indsaetpenge(penge);
+        this.pengebeholdning = pengebeholdning + penge;
     }
 }
