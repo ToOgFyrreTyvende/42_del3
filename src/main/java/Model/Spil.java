@@ -66,14 +66,14 @@ public class Spil {
     public String spilTur(){
         if (!afsluttet) {
             int nuIndex = java.util.Arrays.asList(spillere).indexOf(aktivSpiller);
-            int nyIndex = nuIndex == 1 ? 0 : 1;
-            int[] slag = terning.getResultat();
-            int[] tempTur = {slag[0], slag[1], slag[2], nuIndex};
+            int nyIndex = (nuIndex + 1) % spillere.length;
+            int slag = terning.getResultat();
+            int[] tempTur = {slag, nuIndex};
             boolean ekstraTur;
 
             Spiller _aktivSpiller = aktivSpiller;
 
-            int feltFraSlag = slag[2] - 2;
+            int feltFraSlag = slag - 2;
             int pengeFraFelt = getFeltPenge(feltFraSlag);
 
             ekstraTur = Feltliste.getEkstraTur(feltFraSlag);
@@ -89,7 +89,7 @@ public class Spil {
             tjekEkstraTur(ekstraTur, nuIndex);
 
             return String.format(Feltliste.feltTekst.getString("TurnsRolled"),
-                    _aktivSpiller.getNavn(), slag[2]);
+                    _aktivSpiller.getNavn(), slag);
         }else{
             return Feltliste.feltTekst.getString("GameEnd");
         }
