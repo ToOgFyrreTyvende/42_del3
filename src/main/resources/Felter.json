@@ -1,41 +1,44 @@
 {
-    "Start": {"Type": "Start","Navn": "Start", "Tekst": "Modtag: 2M", "Beskrivelse": "Modtag 2M \n når de passerer start"},
+    "Start": {"Type": "Start","Navn": "Start", "Beskrivelse": "Modtag: 2M",
+              "Beskrivelse": "Modtag 2M \n når de passerer start", "Pris": 0, "Farve": "White"},
 
-    "Burgerbaren": {"Type": "Street", "Navn": "Burgerbaren", "Pris": 1, "Farve": "Black"},
-    "Pizzahuset": {"Type": "Street", "Navn": "Pizzariaet", "Pris": 1, "Farve": "Black"},
+    "Burgerbaren": {"Type": "Street", "Navn": "Burgerbaren", "Beskrivelse": "", "Pris": 1, "Farve": "Black"},
+    "Pizzahuset": {"Type": "Street", "Navn": "Pizzariaet", "Beskrivelse": "", "Pris": 1, "Farve": "Black"},
 
-    "Chance": {"Type": "Chance", "Navn": "Chance", "Teskt": "Træk et chancekort", "Farve": "White"},
+    "Chance1": {"Type": "Chance", "Navn": "Chance", "Beskrivelse": "", "Teskt": "Træk et chancekort",
+                "Farve": "White", "Pris": 0},
 
-    "Slikbutikken": {"Type": "Street","Navn": "Slikbutikken", "Pris": 1, "Farve": "Blue"},
-    "Iskiosken": {"Type": "Street","Navn": "Iskiosken", "Pris": 1, "Farve": "Blue"},
+    "Slikbutikken": {"Type": "Street","Navn": "Slikbutikken", "Beskrivelse": "","Pris": 1, "Farve": "Blue"},
+    "Iskiosken": {"Type": "Street","Navn": "Iskiosken", "Beskrivelse": "","Pris": 1, "Farve": "Blue"},
     
-    "Fængsel": {"Type": "Jail","Navn": "Fængsel", "Tekst": "På besøg", "Farve": "Black"},
+    "Fængsel1": {"Type": "Jail","Navn": "Fængsel", "Beskrivelse": "På besøg", "Farve": "Black"},
 
-    "Museet": {"Type": "Street","Navn": "Museet", "Pris": 2, "Farve": "Purple"},
-    "Biblioteket": {"Type": "Street","Navn": "Biblioteket", "Pris": 2, "Farve": "Purple"},
+    "Museet": {"Type": "Street","Navn": "Museet", "Beskrivelse": "", "Pris": 2, "Farve": "Purple"},
+    "Biblioteket": {"Type": "Street","Navn": "Biblioteket", "Beskrivelse": "", "Pris": 2, "Farve": "Purple"},
 
-    "Chance": {"Type": "Chance", "Navn": "Chance", "Teskt": "Træk et chancekort", "Farve": "White"},
+    "Chance2": {"Type": "Chance", "Navn": "Chance", "Beskrivelse": "Træk et chancekort", "Farve": "White",
+                "Pris": 0},
 
-    "Skaterparken": {"Type": "Street","Navn": "Skaterparken", "Pris": 2, "Farve": "Yellow"},
-    "Swimmingpoolen": {"Type": "Street","Navn": "Swimmingpoolen", "Pris": 2, "Farve": "Yellow"},
+    "Skaterparken": {"Type": "Street","Navn": "Skaterparken", "Beskrivelse": "","Pris": 2, "Farve": "Yellow"},
+    "Swimmingpoolen": {"Type": "Street","Navn": "Swimmingpoolen", "Beskrivelse": "","Pris": 2, "Farve": "Yellow"},
 
-    "Gratis parkering": {"Type": "Empty","Navn": "Gratis parkering", "Tekst": "", "Farve": "Black"},
+    "Gratis parkering": {"Type": "Empty","Navn": "Gratis parkering", "Beskrivelse": "", "Farve": "Black", "Pris": 0},
 
-    "Spillehallen": {"Type": "Street","Navn": "Spillehallen", " Pris": 3, "Farve": "Red"},
-    "Biograf": {"Type": "Street","Navn": "Biograf", "Pris": 3, "Farve": "Red"},    
+    "Spillehallen": {"Type": "Street","Navn": "Spillehallen", "Beskrivelse": ""," Pris": 3, "Farve": "Red"},
+    "Biograf": {"Type": "Street","Navn": "Biograf", "Beskrivelse": "","Pris": 3, "Farve": "Red"},
 
-    "Chance": {"Type": "Chance", "Navn": "Chance", "Teskt": "Træk et chancekort", "Farve": "White"},
+    "Chance3": {"Type": "Chance", "Navn": "Chance", "Beskrivelse": "Træk et chancekort", "Farve": "White", "Pris": 0},
 
-    "Legetøjsbutik": {"Type": "Street","Navn": "Legetøjsbutik", "Pris": 3, "Farve": "Gold"},
-    "Dyrehandel": {"Type": "Street","Navn": "Dyrehandel", "Pris": 3, "Farve": "Gold"},
+    "Legetøjsbutik": {"Type": "Street","Navn": "Legetøjsbutik", "Beskrivelse": "","Pris": 3, "Farve": "Gold"},
+    "Dyrehandel": {"Type": "Street","Navn": "Dyrehandel", "Beskrivelse": "","Pris": 3, "Farve": "Gold"},
 
-    "Fængsel": {"Type": "Jail","Navn": "Gå til Fængsel", "Tekst": "Hen til fængsel, du", "Farve": "Black"},
+    "Fængsel2": {"Type": "Jail","Navn": "Gå til Fængsel", "Beskrivelse": "Hen til fængsel, du", "Farve": "Black", "Pris": 0},
     
-    "Bowlinghallen": {"Type": "Street","Navn": "Bowlinghallen", "Pris": 4, "Farve": "Green"},
-    "Zoo": {"Type": "Street","Navn": "Zoo", "Pris": 4, "Farve": "Green"},
+    "Bowlinghallen": {"Type": "Street","Navn": "Bowlinghallen", "Beskrivelse": "","Pris": 4, "Farve": "Green"},
+    "Zoo": {"Type": "Street","Navn": "Zoo", "Beskrivelse": "","Pris": 4, "Farve": "Green"},
 
-    "Chance": {"Type": "Chance", "Navn": "Chance", "Teskt": "Træk et chancekort", "Farve": "White"},
+    "Chance4": {"Type": "Chance", "Navn": "Chance", "Beskrivelse": "Træk et chancekort", "Farve": "White", "Pris": 0},
 
-    "Vandlandet": {"Type": "Street","Navn": "Vandlandet", "Pris": 5, "Farve": "Navy"},
-    "Strandpromenaden": {"Type": "Street","Navn": "Strandpromenaden", "Pris": 5, "Farve": "Navy"}
+    "Vandlandet": {"Type": "Street","Navn": "Vandlandet", "Beskrivelse": "","Pris": 5, "Farve": "Navy"},
+    "Strandpromenaden": {"Type": "Street","Navn": "Strandpromenaden", "Beskrivelse": "","Pris": 5, "Farve": "Navy"}
 }

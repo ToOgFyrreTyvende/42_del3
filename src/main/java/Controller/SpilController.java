@@ -14,6 +14,7 @@ public class SpilController{
     public SpilController(){
         this.view = new GameGUIView();
         initialiserSpil();
+        spillerTur(spil.getAktivSpiller());
 
     }
 
@@ -32,48 +33,26 @@ public class SpilController{
     }
 
 
+    public void spillerTur(Spiller spiller){
+        view.getRundeValgMedTekst("Spiller 1's tur. Rul venligst terningen.", "Rul terning");
+        Spiller muligSpiller = spil.spilTur();
+        if (muligSpiller != null){
+            opdaterUIspiller(muligSpiller);
+            spillerTur(spil.getAktivSpiller());
+        }else {
+            view.slutTekst("spillet er slut!");
+        }
+    }
+
+    private void opdaterUIspiller(Spiller spiller){
+        view.opdaterSpillerData(spiller);
+    }
+
+
     // #--------------Get--------------#
-    public String getAktivSpiller() {
-        return this.spil.getAktivSpiller().getNavn();
-    }
-
-    public String getSlutTekst() {
-        if (!this.spil.spilAktivt()) {
-            Spiller vinder = this.spil.getVinder();
-            return String.format(Feltliste.feltTekst.getString("YouWon"), vinder.getNavn(), vinder.getPenge());
-        } else {
-            return "";
-        }
-    }
-
-    // #-------------Other-------------#    
-    public void start() {
-        view.getRundeValgMedTekst(Feltliste.feltTekst.getString("GameBegun"), "Ok");
-    }
-
-    public String kastTerning(){
-        if(!this.spil.spilAktivt()){
-            System.out.println();
-            Spiller vinder = this.spil.getVinder();
-            if(vinder != null){
-                return String.format(Feltliste.feltTekst.getString("GetGold"),
-                            vinder.getNavn(), vinder.getPenge());
-            }else{
-                return Feltliste.feltTekst.getString("GameError");
-            }
-        }else{
-            Spiller aktivSpiller = spil.getAktivSpiller();
-            String turTekst = (spil.spilTur());
-    
-            String kastFeltTekst = Feltliste.getFeltTekst(aktivSpiller.getFelt());
-            String pengeMsg = String.format(Feltliste.feltTekst.getString("GetGold2"), aktivSpiller.getNavn(), aktivSpiller.getPenge());
-    
-            return turTekst + "\n" + kastFeltTekst + "\n" + pengeMsg;
-        }
-    }
 
     public boolean spilAktivt(){
-        return spil.spilAktivt();
+        return !spil.isAfsluttet();
     }
 
 }

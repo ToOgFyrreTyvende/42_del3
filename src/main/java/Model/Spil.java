@@ -11,6 +11,9 @@ import java.util.List;
  */
 
 public class Spil {
+    private int[] muligeStartPenge = {20, 18, 16};
+    private int startPenge;
+
     private Spiller[] spillere;
     private Spiller vinder;
     private Spiller aktivSpiller;
@@ -20,8 +23,7 @@ public class Spil {
     private Runde aktivRunde;    
     private boolean afsluttet;
 
-    private int[] muligeStartPenge = {20, 18, 16};
-    private int startPenge;
+    private GameBoard spilBraet;
 
     // #----------Constructor----------#
 
@@ -32,6 +34,8 @@ public class Spil {
         runder = new ArrayList<>();
         runder.add(new Runde());
         terning = new Terning();
+
+        this.spilBraet = new GameBoard();
 
         aktivSpiller = spillere[0];
         aktivRunde = runder.get(runder.size()-1);
@@ -53,7 +57,7 @@ public class Spil {
     }
 
     
-    public String spilTur(){
+    public Spiller spilTur(){
         if (!afsluttet) {
             int nuIndex = java.util.Arrays.asList(spillere).indexOf(aktivSpiller);
             int nyIndex = (nuIndex + 1) % spillere.length;
@@ -62,16 +66,19 @@ public class Spil {
 
             Spiller _aktivSpiller = aktivSpiller;
 
+            int nyFelt = (aktivSpiller.getFelt() + slag) % 24;
+
+            aktivSpiller.setFelt(nyFelt);
+            aktivSpiller.addPenge(spilBraet.getFeltPenge(nyFelt));
+
             aktivRunde.tilfoejTur(tempTur);
-            this.aktivSpiller = spillere[nyIndex];
-            
-            // vinder skal have 3000 guld for at vinde, dette tjekkes her
+            aktivSpiller = spillere[nyIndex];
+
             checkRunde();
 
-            return String.format(Feltliste.feltTekst.getString("TurnsRolled"),
-                    _aktivSpiller.getNavn(), slag);
+            return _aktivSpiller;
         }else{
-            return Feltliste.feltTekst.getString("GameEnd");
+            return null;
         }
     }
 

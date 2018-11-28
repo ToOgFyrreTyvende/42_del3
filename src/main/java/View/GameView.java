@@ -14,5 +14,7 @@ public abstract class GameView {
     public abstract void resetBoard();
     public abstract void setSpillerFelt(Spiller spiller, int felt);
     public abstract void setSpillerPenge(Spiller spiller, int penge);
+    public abstract void opdaterSpillerData(Spiller spiller);
+    public abstract void slutTekst(String tekst);
 
 }
