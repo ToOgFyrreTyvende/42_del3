@@ -20,6 +20,10 @@ public class Terning {
     public Terning() {
         this.antalSider = 6;
     }
+
+    public Terning(int sider) {
+        this.antalSider = sider;
+    }
     
     // #--------------Get--------------#
     public int getResultat(){ // Returner en værdi af terningen.

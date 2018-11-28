@@ -20,9 +20,7 @@ public class Spil {
     private Runde aktivRunde;    
     private boolean afsluttet;
 
-    private int pengeHvis2 = 20;
-    private int pengeHvis3 = 18;
-    private int pengeHvis4 = 16;
+    private int[] muligeStartPenge = {20, 18, 16};
     private int startPenge;
 
     // #----------Constructor----------#
@@ -43,9 +41,7 @@ public class Spil {
 
     private void opretSpillere(String[] spillerNavne){
 
-        if (spillere.length == 2) {startPenge = pengeHvis2;}
-        else if (spillere.length == 3) {startPenge = pengeHvis3;}
-        else if (spillere.length == 4) {startPenge = pengeHvis4;}
+        this.startPenge = muligeStartPenge[spillerNavne.length - 2];
 
         Spiller[] spillere = new Spiller[spillerNavne.length];
         for (int i = 0; i < spillerNavne.length; i++) {
@@ -107,5 +103,72 @@ public class Spil {
             }
         }
         return (højest);
+    }
+
+    // Getters & setters
+
+
+    public Spiller[] getSpillere() {
+        return spillere;
+    }
+
+    public void setSpillere(Spiller[] spillere) {
+        this.spillere = spillere;
+    }
+
+    public Spiller getVinder() {
+        return vinder;
+    }
+
+    public void setVinder(Spiller vinder) {
+        this.vinder = vinder;
+    }
+
+    public Spiller getAktivSpiller() {
+        return aktivSpiller;
+    }
+
+    public void setAktivSpiller(Spiller aktivSpiller) {
+        this.aktivSpiller = aktivSpiller;
+    }
+
+    public Terning getTerning() {
+        return terning;
+    }
+
+    public void setTerning(Terning terning) {
+        this.terning = terning;
+    }
+
+    public List<Runde> getRunder() {
+        return runder;
+    }
+
+    public void setRunder(List<Runde> runder) {
+        this.runder = runder;
+    }
+
+    public Runde getAktivRunde() {
+        return aktivRunde;
+    }
+
+    public void setAktivRunde(Runde aktivRunde) {
+        this.aktivRunde = aktivRunde;
+    }
+
+    public boolean isAfsluttet() {
+        return afsluttet;
+    }
+
+    public void setAfsluttet(boolean afsluttet) {
+        this.afsluttet = afsluttet;
+    }
+
+    public int getStartPenge() {
+        return startPenge;
+    }
+
+    public void setStartPenge(int startPenge) {
+        this.startPenge = startPenge;
     }
 }
