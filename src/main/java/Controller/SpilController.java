@@ -31,9 +31,6 @@ public class SpilController{
         this.view.resetBoard();
     }
 
-    public SpilController(String spiller1, String spiller2){
-        this.spil = new Spil(spiller1, spiller2);
-    }
 
     // #--------------Get--------------#
     public String getAktivSpiller() {
