@@ -9,15 +9,19 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Random;
 
+// Vi ved godt, at mange elementer i denne klasse er gentagende fra vores model
+// Men vi har været nødt til at "tvinge" noget data ind i UIets format igennem denne klasse.
+
 public class GameGUIView extends GameView {
     private GUI ui;
     private GUI_Field[] fields;
 
-    private HashMap<Spiller, GUI_Player> spillere;
+    private HashMap<Spiller, GUI_Player> spillere = new HashMap<>();
 
     public GameGUIView() {
         this.ui = new GUI(makeFields());
         ui.setDice(3,2);
+
 
     }
 
@@ -78,16 +82,18 @@ public class GameGUIView extends GameView {
     public void setSpillere(Spiller ... spillereModel) {
         //this.spillere = new GUI_Player[spillereModel.length];
         //Random rand = new Random();
-
-        for (Spiller spiller : spillereModel) {
+        for (int i = 0; i < spillereModel.length; i++){
+            System.out.println(spillereModel[i].getNavn());
             //double r = rand.nextFloat() / 2f + 0.5
             //double g = rand.nextFloat() / 2f + 0.5;
             //double b = rand.nextFloat() / 2f + 0.5;
             //GUI_Car tempcar = new GUI_Car();
             //tempcar.setPrimaryColor(new Color((float)r, (float)g, (float)b));
 
-            this.spillere.put(spiller, new GUI_Player(spiller.getNavn(), spiller.getPenge()));
-            ui.addPlayer(this.spillere.get(spiller));
+            GUI_Player tempSpillerGUI = new GUI_Player(spillereModel[i].getNavn(), spillereModel[i].getPenge());
+
+            this.spillere.put(spillereModel[i], tempSpillerGUI);
+            ui.addPlayer(this.spillere.get(spillereModel[i]));
         }
     }
 
