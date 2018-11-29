@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class spillerTest {
+
     Spiller spiller = new Spiller("Test");
 
     @Test
@@ -25,7 +26,22 @@ public class spillerTest {
         int testEkstraPenge = 100;
         spiller.addPenge(testEkstraPenge);
         // Vi tilføjer 1000 til ekstra pengene, siden en spiller starter med 1000 guld
-        assertEquals(testEkstraPenge + 1000, spiller.getPenge());
+        assertEquals(testEkstraPenge + 1, spiller.getPenge());
     }
 
+    @Test
+    void setPengeTest() {
+        int testPenge = 42;
+        spiller.setPenge(testPenge);
+        // Vi sætter spillerens pengeantal til 42 og tjekker spillerens pengeantal er lig 42
+        assertEquals(testPenge, spiller.getPenge());
+    }
+
+    @Test
+    void SidstSlaaetTest() {
+        int testVal = 1;
+        spiller.setSidstSlaaet(testVal);
+        // Sætter spilleren's "sidstSlaaet" til 1 og tjekker at både get og set metoden virker
+        assertEquals(testVal, spiller.getSidstSlaaet());
+    }
 }
