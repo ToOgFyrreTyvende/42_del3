@@ -1,5 +1,7 @@
 package Model;
 
+import gui_fields.GUI_Player;
+
 /**
  * ------------------------------------------------------------/
  * Denne klasse kaldes for at oprette en ny spiller
@@ -11,15 +13,15 @@ package Model;
  // PLACEHOLDER! Skift Model.Spiller til at initialisere ÉN spiller
  // af gangen.
 public class Spiller {
-    private int felt;
+    private int felt = 0;
     private String navn;
-    private Konto konto;
+    private int pengebeholdning = 1;
+    private int sidstSlaaet = 0;
 
     // #----------Constructor----------#
     public Spiller(String navn){
         // Vælg spiller navn selv
         this.navn = navn;
-        this.konto = new Konto();
     }
 
     // #------------Get/Set------------#
@@ -34,21 +36,29 @@ public class Spiller {
     }
 
     public int getPenge(){
-        return konto.getPenge();
+        return this.pengebeholdning;
     }
 
     public void setPenge(int penge){
-        this.konto.setPenge(penge); 
+        this.pengebeholdning = penge;
     }
-    
+
+    public void setSidstSlaaet(int sidstSlaaet) {
+        this.sidstSlaaet = sidstSlaaet;
+    }
+
     // #--------------Get--------------#
     public String getNavn(){
         // Returnerer spiller navn
         return navn;
     }
 
+    public int getSidstSlaaet() {
+        return sidstSlaaet;
+    }
+
     // #-------------Other-------------#
     public void addPenge(int penge){
-        this.konto.indsaetpenge(penge);
+        this.pengebeholdning = pengebeholdning + penge;
     }
 }

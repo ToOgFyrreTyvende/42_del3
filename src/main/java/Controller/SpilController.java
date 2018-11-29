@@ -14,6 +14,7 @@ public class SpilController{
     public SpilController(){
         this.view = new GameGUIView();
         initialiserSpil();
+        spillerTur(spil.getAktivSpiller());
 
     }
 
@@ -23,58 +24,45 @@ public class SpilController{
         String[] spillerNavne = new String[spillerAntal];
 
         for (int i = 0; i < spillerAntal; i++) {
-            spillerNavne[i] = (this.view.getSpillerNavn(i + 1));
+            if (i==0){
+                spillerNavne[i] = (this.view.getSpillerNavn("Indtast venligst første, yngste spillers navn."));
+
+            }else{
+                spillerNavne[i] = (this.view.getSpillerNavn("Indtast venligst " + (i+1) + ". spillers navn."));
+            }
         }
 
         spil = new Spil(spillerNavne);
+        this.view.setSpillere(spil.getSpillere());
+        this.view.resetBoard();
     }
 
-    public SpilController(String spiller1, String spiller2){
-        this.spil = new Spil(spiller1, spiller2);
+
+    public void spillerTur(Spiller spiller){
+        view.getRundeValgMedTekst(spiller.getNavn() + "'s tur. Rul venligst terningen.", "Rul terning");
+
+        int forrigeFelt = spiller.getFelt();
+
+        Spiller muligNySpiller = spil.spilTur();
+
+        if (muligNySpiller != null){
+            opdaterUIspiller(muligNySpiller, forrigeFelt);
+            view.setTerning(spiller.getSidstSlaaet());
+            spillerTur(spil.getAktivSpiller());
+        }else {
+            view.slutTekst("spillet er slut!");
+        }
     }
+
+    private void opdaterUIspiller(Spiller spiller, int forrigeFelt){
+        view.opdaterSpillerData(spiller, forrigeFelt);
+    }
+
 
     // #--------------Get--------------#
-    public String getAktivSpiller() {
-        return this.spil.getAktivSpiller().getNavn();
-    }
-
-    public String getSlutTekst() {
-        if (!this.spil.spilAktivt()) {
-            Spiller vinder = this.spil.getVinder();
-            return String.format(Feltliste.feltTekst.getString("YouWon"), vinder.getNavn(), vinder.getPenge());
-        } else {
-            return "";
-        }
-    }
-
-    // #-------------Other-------------#    
-    public void start() {
-        System.out.println(Feltliste.feltTekst.getString("GameBegun"));
-    }
-
-    public String kastTerning(){
-        if(!this.spil.spilAktivt()){
-            System.out.println();
-            Spiller vinder = this.spil.getVinder();
-            if(vinder != null){
-                return String.format(Feltliste.feltTekst.getString("GetGold"),
-                            vinder.getNavn(), vinder.getPenge());
-            }else{
-                return Feltliste.feltTekst.getString("GameError");
-            }
-        }else{
-            Spiller aktivSpiller = spil.getAktivSpiller();
-            String turTekst = (spil.spilTur());
-    
-            String kastFeltTekst = Feltliste.getFeltTekst(aktivSpiller.getFelt());
-            String pengeMsg = String.format(Feltliste.feltTekst.getString("GetGold2"), aktivSpiller.getNavn(), aktivSpiller.getPenge());
-    
-            return turTekst + "\n" + kastFeltTekst + "\n" + pengeMsg;
-        }
-    }
 
     public boolean spilAktivt(){
-        return spil.spilAktivt();
+        return !spil.isAfsluttet();
     }
 
 }

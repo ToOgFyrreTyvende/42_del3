@@ -13,45 +13,25 @@ package Model;
  */
 
 public class Terning {
-    private int antalSider, antal;
+    private int resultat;
+    private int antalSider;
 
     // #----------Constructor----------#
     public Terning() {
         this.antalSider = 6;
-        this.antal = 1;
-    }
-    public Terning(int antalSider, int antal) {
-        this.antalSider = antalSider;
-        this.antal = antal;
     }
 
+    public Terning(int sider) {
+        this.antalSider = sider;
+    }
+    
     // #--------------Get--------------#
-    public int getResultat(){
+    public int getResultat(){ // Returner en værdi af terningen.
         int sum = 0;
-            float _random1 = (float) Math.random();         // 0-1 float
-            int _random2 = (int) (_random1 * antalSider);   // 0-5 integer
-            sum = _random2 + 1;                      // 1-6 integer
-        return sum;
-    }
-    public int getAntalSider() {
-        return antalSider;
-    }
+        float _random1 = (float) Math.random();         // 0-1 float
+        int _random2 = (int) (_random1 * antalSider);   // 0-5 integer
+        resultat = _random2 + 1;                        // 1-6 integer
 
-/*    public int[] getResultat(){ // Returner en værdi af terningen.
-        int[] kast = new int[antal+1];
-        int sum = 0;
-        for (int i = 0 ; i < antal ; i++){
-            float _random1 = (float) Math.random();         // 0-1 float
-            int _random2 = (int) (_random1 * antalSider);   // 0-5 integer
-            int random = _random2 + 1;                      // 1-6 integer
-            kast[i] = random;
-            sum += random;
-        }
-        kast[kast.length-1] = sum;
-        return kast;
-    }   */
-
-    public int getAntal() {
-        return antal;
+        return resultat;
     }
 }
