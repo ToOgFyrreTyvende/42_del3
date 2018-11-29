@@ -14,13 +14,14 @@ import java.util.Random;
 
 public class GameGUIView extends GameView {
     private GUI ui;
-    private GUI_Field[] fields;
+    private GUI_Field[] felter;
 
     private HashMap<Spiller, GUI_Player> spillere = new HashMap<>();
 
     public GameGUIView(GameBoard sb) {
         super(sb);
-        this.ui = new GUI(getSpilBraet().getFelterGUI());
+        this.felter = getSpilBraet().getFelterGUI();
+        this.ui = new GUI(felter);
     }
 
     @Override
@@ -50,7 +51,7 @@ public class GameGUIView extends GameView {
 
         Random rand = new Random();
         for (int i = 0; i < spillereModel.length; i++){
-            System.out.println(spillereModel[i].getNavn());
+            //System.out.println(spillereModel[i].getNavn());
 
 
             GUI_Car tempcar = new GUI_Car();
@@ -66,36 +67,32 @@ public class GameGUIView extends GameView {
 
     @Override
     public void resetBoard() {
-        this.spillere.forEach((spillerModel, spillerBrik) -> this.fields[0].setCar(spillerBrik, true));
+        this.spillere.forEach((spillerModel, spillerBrik) -> this.felter[0].setCar(spillerBrik, true));
     }
 
     @Override
     public void setSpillerFelt(Spiller spillerModel, int felt) {
-        System.out.println(this.fields[0]);
+        //System.out.println(this.felter[0]);
         int feltIndex = (felt % 24) -1;
 
         GUI_Player spillerGUI = this.spillere.get(spillerModel);
 
-        this.fields[feltIndex].setCar(spillerGUI, true);
+        this.felter[feltIndex].setCar(spillerGUI, true);
     }
 
     @Override
     public void setSpillerFelt(Spiller spillerModel, int felt, int forrigeFelt) {
-        System.out.println(this.fields[0]);
         int feltIndex = felt;
-        if (feltIndex == -1)
-        System.out.println("Feltindex: " + feltIndex);
-        System.out.println("forrigeFelt: " + forrigeFelt);
 
         GUI_Player spillerGUI = this.spillere.get(spillerModel);
-        GUI_Field field = this.fields[forrigeFelt];
+        GUI_Field field = this.felter[forrigeFelt];
 
         if(field.hasCar(spillerGUI)){
             field.setCar(spillerGUI, false);
         }
 
 
-        this.fields[feltIndex].setCar(spillerGUI, true);
+        this.felter[feltIndex].setCar(spillerGUI, true);
     }
 
     @Override
@@ -106,12 +103,16 @@ public class GameGUIView extends GameView {
     @Override
     public void opdaterSpillerData(Spiller spiller, int forrigeFelt) {
         setSpillerFelt(spiller, spiller.getFelt(), forrigeFelt);
-        setSpillerPenge(spiller, spiller.getPenge());
+
+        this.spillere.forEach((spillerModel, spillerBrik) ->
+                                spillerBrik.setBalance(spillerModel.getPenge()));
+
+        //setSpillerPenge(spiller, spiller.getPenge());
     }
 
     @Override
     public void slutTekst(String tekst) {
-        this.ui.getUserButtonPressed(tekst, "");
+        this.ui.getUserButtonPressed(tekst, "Afslut");
     }
 
     @Override

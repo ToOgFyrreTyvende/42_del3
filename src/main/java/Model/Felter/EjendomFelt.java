@@ -24,6 +24,7 @@ public class EjendomFelt extends Felt {
         super(navn, subText, beskrivelse);
         this.pris = pris;
         this.farve = farve;
+        this.leje = pris;
     }
 
     // #--------------Get--------------#

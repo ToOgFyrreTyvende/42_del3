@@ -69,10 +69,6 @@ public class GameBoard {
 
     }
 
-    private static void lavBoard(String s, Object o) {
-        System.out.println(o);
-    }
-
     public int getFeltPenge(int felt){
         return 2;
     }
@@ -82,6 +78,7 @@ public class GameBoard {
     }
 
     public Felt getFeltModel(int index){
+        //System.out.println(index);
         return felterModel[index % 24];
     }
 
@@ -92,9 +89,14 @@ public class GameBoard {
     public boolean erEjet(int index){
         Felt felt = this.getFelterModel()[index % 24];
         if (felt instanceof EjendomFelt){
-            return ((EjendomFelt) felt).getEjer() == null;
+            Spiller ejer = ((EjendomFelt) felt).getEjer();
+            return ejer != null;
         }
         return false;
+    }
+
+    public int getFaengsel(){
+        return 6;
     }
 
 

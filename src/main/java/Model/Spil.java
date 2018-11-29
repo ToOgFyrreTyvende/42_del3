@@ -1,6 +1,7 @@
 package Model;
 
 import Model.Felter.EjendomFelt;
+import Model.Felter.TilFaengselFelt;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class Spil {
 
     // #----------Constructor----------#
 
-    public Spil(String[] spillerNavne){
+    public Spil(GameBoard sb, String[] spillerNavne){
         opretSpillere(spillerNavne);
 
         //Kodedelen med runder er taget fra vores forrige opgave: 42_del1
@@ -39,6 +40,8 @@ public class Spil {
 
         aktivSpiller = spillere[0];
         aktivRunde = runder.get(runder.size()-1);
+
+        spilBraet = sb;
 
         afsluttet = false;
     }
@@ -66,7 +69,7 @@ public class Spil {
 
             Spiller _aktivSpiller = aktivSpiller;
 
-            spilRegler();
+            spilRegler(slag);
 
             opdaterAktivSpillerMedSlag(slag);
 
@@ -81,7 +84,7 @@ public class Spil {
         }
     }
 
-    private void spilRegler() {
+    private void spilRegler(int slag) {
         if (aktivSpiller.isiFaengsel()){
             aktivSpiller.addPenge(-1);
             aktivSpiller.setiFaengsel(false);
@@ -89,9 +92,11 @@ public class Spil {
         }
 
         if (!afsluttet){
-            int feltId = aktivSpiller.getFelt();
+            int feltId = aktivSpiller.getFelt() + slag;
             Felt landetFelt = this.getSpilBraet().getFeltModel(feltId);
             ejendomBetal(feltId, landetFelt);
+            //chancekort skal tilføjes...
+            tjekTilFaengsel(feltId, landetFelt);
 
 
 
@@ -104,16 +109,42 @@ public class Spil {
     private void ejendomBetal(int feltId, Felt landetFelt) {
         if (landetFelt instanceof EjendomFelt) {
             if (this.getSpilBraet().erEjet(feltId)){
+                System.out.println(aktivSpiller.getNavn() + " Har købt " + landetFelt.getNavn());
                 betalTilSpillerFelt(aktivSpiller, (EjendomFelt) landetFelt);
+            }else{
+                koebFelt(aktivSpiller, (EjendomFelt) landetFelt);
             }
         }
     }
+
+    public void betalTilSpillerFelt(Spiller spiller, EjendomFelt landetFelt){
+        Spiller ejer = landetFelt.getEjer();
+        int betaling = landetFelt.getLeje();
+        spiller.addPenge( - betaling);
+        ejer.addPenge(betaling);
+    }
+
+    private void koebFelt(Spiller spiller, EjendomFelt landetFelt) {
+        int betaling = landetFelt.getPris();
+        spiller.addPenge( - betaling);
+    }
+
+    private void tjekTilFaengsel(int feltId, Felt landetFelt) {
+        if (landetFelt instanceof TilFaengselFelt) {
+            smidIFaengsel(aktivSpiller);
+        }
+    }
+
+    public void smidIFaengsel(Spiller spiller){
+        spiller.setFelt(spilBraet.getFaengsel());
+        spiller.setiFaengsel(true);
+    }
+
 
     private void opdaterAktivSpillerMedSlag(int slag) {
         int nyFelt = (aktivSpiller.getFelt() + slag) % 24;
 
         aktivSpiller.setFelt(nyFelt);
-        aktivSpiller.addPenge(spilBraet.getFeltPenge(nyFelt));
         aktivSpiller.setSidstSlaaet(slag);
     }
 
@@ -222,8 +253,4 @@ public class Spil {
         this.spilBraet = spilBraet;
     }
 
-    public void betalTilSpillerFelt(Spiller spiller, EjendomFelt eFelt){
-        int betaling = eFelt.getLeje();
-        spiller.addPenge( - betaling);
-    }
 }

@@ -35,7 +35,7 @@ public class SpilController{
             }
         }
 
-        spil = new Spil(spillerNavne);
+        spil = new Spil(this.spilBraet, spillerNavne);
         this.view.setSpillere(spil.getSpillere());
         this.view.resetBoard();
     }
