@@ -70,6 +70,7 @@ public class Spil {
 
             aktivSpiller.setFelt(nyFelt);
             aktivSpiller.addPenge(spilBraet.getFeltPenge(nyFelt));
+            aktivSpiller.setSidstSlaaet(slag);
 
             aktivRunde.tilfoejTur(tempTur);
             aktivSpiller = spillere[nyIndex];

@@ -6,6 +6,7 @@ import gui_main.GUI;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Random;
 
 // Vi ved godt, at mange elementer i denne klasse er gentagende fra vores model
 // Men vi har været nødt til at "tvinge" noget data ind i UIets format igennem denne klasse.
@@ -23,9 +24,8 @@ public class GameGUIView extends GameView {
     private GUI_Field[] makeFields() {
         fields = new GUI_Field[24];
         int i = 0;
-        int var2 = i + 1;
         // Der er GUI_Street, GUI_Chance, GUI_Tax, GUI_Shipping, GUI_Jail, GUI_brewery
-        fields[i] = new GUI_Start("Start", "Modtag: 2 M", "Modtag 2M,-\n når de passerer start", Color.RED, Color.BLACK);
+        fields[i++] = new GUI_Start("Start", "Modtag: 2 M", "Modtag 2M,-\n når de passerer start", Color.RED, Color.BLACK);
         fields[i++] = new GUI_Street("Burgerbaren", "Pris:  1M", "Burgerbaren", "Leje:  1M", new Color(75, 155, 225), Color.BLACK);
         fields[i++] = new GUI_Street("Pizzahuset","Pris: 1M","", "Ta' et chancekort.", new Color(204, 204, 204), Color.BLACK);
         fields[i++] = new GUI_Tax("Chance","","", Color.WHITE, Color.BLACK);
@@ -49,7 +49,6 @@ public class GameGUIView extends GameView {
         fields[i++] = new GUI_Shipping("default", "D.F.D.S.", "Pris:  200", "D.F.D.S.", "Leje:  75", Color.WHITE, Color.BLACK);
         fields[i++] = new GUI_Shipping("default", "D.F.D.S.", "Pris:  200", "D.F.D.S.", "Leje:  75", Color.WHITE, Color.BLACK);
         fields[i++] = new GUI_Shipping("default", "D.F.D.S.", "Pris:  200", "D.F.D.S.", "Leje:  75", Color.WHITE, Color.BLACK);
-        fields[i++] = new GUI_Shipping("default", "D.F.D.S.", "Pris:  200", "D.F.D.S.", "Leje:  75", Color.WHITE, Color.BLACK);
         return fields;
     }
 
@@ -59,8 +58,8 @@ public class GameGUIView extends GameView {
     }
 
     @Override
-    public String getSpillerNavn(int nr) {
-        return ui.getUserString("Indtast venligst spiller " + nr + "s navn.");
+    public String getSpillerNavn(String tekst) {
+        return ui.getUserString(tekst);
     }
 
 
@@ -76,17 +75,18 @@ public class GameGUIView extends GameView {
 
     @Override
     public void setSpillere(Spiller ... spillereModel) {
-        //this.spillere = new GUI_Player[spillereModel.length];
-        //Random rand = new Random();
+        Color[] farver = {Color.blue, Color.red, Color.yellow, Color.green};
+
+        Random rand = new Random();
         for (int i = 0; i < spillereModel.length; i++){
             System.out.println(spillereModel[i].getNavn());
-            //double r = rand.nextFloat() / 2f + 0.5
-            //double g = rand.nextFloat() / 2f + 0.5;
-            //double b = rand.nextFloat() / 2f + 0.5;
-            //GUI_Car tempcar = new GUI_Car();
-            //tempcar.setPrimaryColor(new Color((float)r, (float)g, (float)b));
 
-            GUI_Player tempSpillerGUI = new GUI_Player(spillereModel[i].getNavn(), spillereModel[i].getPenge());
+
+            GUI_Car tempcar = new GUI_Car();
+            tempcar.setPrimaryColor(farver[i]);
+
+            GUI_Player tempSpillerGUI = new GUI_Player(spillereModel[i].getNavn(),
+                                        spillereModel[i].getPenge(), tempcar);
 
             this.spillere.put(spillereModel[i], tempSpillerGUI);
             ui.addPlayer(this.spillere.get(spillereModel[i]));
@@ -102,7 +102,27 @@ public class GameGUIView extends GameView {
     public void setSpillerFelt(Spiller spillerModel, int felt) {
         System.out.println(this.fields[0]);
         int feltIndex = (felt % 24) -1;
+
         GUI_Player spillerGUI = this.spillere.get(spillerModel);
+
+        this.fields[feltIndex].setCar(spillerGUI, true);
+    }
+
+    @Override
+    public void setSpillerFelt(Spiller spillerModel, int felt, int forrigeFelt) {
+        System.out.println(this.fields[0]);
+        int feltIndex = felt;
+        if (feltIndex == -1)
+        System.out.println("Feltindex: " + feltIndex);
+        System.out.println("forrigeFelt: " + forrigeFelt);
+
+        GUI_Player spillerGUI = this.spillere.get(spillerModel);
+        GUI_Field field = this.fields[forrigeFelt];
+
+        if(field.hasCar(spillerGUI)){
+            field.setCar(spillerGUI, false);
+        }
+
 
         this.fields[feltIndex].setCar(spillerGUI, true);
     }
@@ -113,13 +133,18 @@ public class GameGUIView extends GameView {
     }
 
     @Override
-    public void opdaterSpillerData(Spiller spiller) {
-        setSpillerFelt(spiller, spiller.getFelt());
+    public void opdaterSpillerData(Spiller spiller, int forrigeFelt) {
+        setSpillerFelt(spiller, spiller.getFelt(), forrigeFelt);
         setSpillerPenge(spiller, spiller.getPenge());
     }
 
     @Override
     public void slutTekst(String tekst) {
         this.ui.getUserButtonPressed(tekst, "");
+    }
+
+    @Override
+    public void setTerning(int slag) {
+        this.ui.setDice(1,2,1,slag,2,1);
     }
 }

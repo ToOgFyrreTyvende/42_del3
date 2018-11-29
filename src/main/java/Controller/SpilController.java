@@ -24,7 +24,12 @@ public class SpilController{
         String[] spillerNavne = new String[spillerAntal];
 
         for (int i = 0; i < spillerAntal; i++) {
-            spillerNavne[i] = (this.view.getSpillerNavn(i + 1));
+            if (i==0){
+                spillerNavne[i] = (this.view.getSpillerNavn("Indtast venligst første, yngste spillers navn."));
+
+            }else{
+                spillerNavne[i] = (this.view.getSpillerNavn("Indtast venligst " + (i+1) + ". spillers navn."));
+            }
         }
 
         spil = new Spil(spillerNavne);
@@ -34,18 +39,23 @@ public class SpilController{
 
 
     public void spillerTur(Spiller spiller){
-        view.getRundeValgMedTekst("Spiller 1's tur. Rul venligst terningen.", "Rul terning");
-        Spiller muligSpiller = spil.spilTur();
-        if (muligSpiller != null){
-            opdaterUIspiller(muligSpiller);
+        view.getRundeValgMedTekst(spiller.getNavn() + "'s tur. Rul venligst terningen.", "Rul terning");
+
+        int forrigeFelt = spiller.getFelt();
+
+        Spiller muligNySpiller = spil.spilTur();
+
+        if (muligNySpiller != null){
+            opdaterUIspiller(muligNySpiller, forrigeFelt);
+            view.setTerning(spiller.getSidstSlaaet());
             spillerTur(spil.getAktivSpiller());
         }else {
             view.slutTekst("spillet er slut!");
         }
     }
 
-    private void opdaterUIspiller(Spiller spiller){
-        view.opdaterSpillerData(spiller);
+    private void opdaterUIspiller(Spiller spiller, int forrigeFelt){
+        view.opdaterSpillerData(spiller, forrigeFelt);
     }
 
 

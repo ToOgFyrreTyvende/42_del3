@@ -13,9 +13,10 @@ import gui_fields.GUI_Player;
  // PLACEHOLDER! Skift Model.Spiller til at initialisere ÉN spiller
  // af gangen.
 public class Spiller {
-    private int felt;
+    private int felt = 0;
     private String navn;
     private int pengebeholdning = 1;
+    private int sidstSlaaet = 0;
 
     // #----------Constructor----------#
     public Spiller(String navn){
@@ -41,11 +42,19 @@ public class Spiller {
     public void setPenge(int penge){
         this.pengebeholdning = penge;
     }
-    
+
+    public void setSidstSlaaet(int sidstSlaaet) {
+        this.sidstSlaaet = sidstSlaaet;
+    }
+
     // #--------------Get--------------#
     public String getNavn(){
         // Returnerer spiller navn
         return navn;
+    }
+
+    public int getSidstSlaaet() {
+        return sidstSlaaet;
     }
 
     // #-------------Other-------------#
