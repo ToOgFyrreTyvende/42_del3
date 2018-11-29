@@ -77,7 +77,7 @@ public class Spil {
             Spiller _aktivSpiller = aktivSpiller;
             int feltId = (aktivSpiller.getFelt() + slag) % 24;
 
-            spilRegler(feltId);
+            feltId = spilRegler(feltId);
 
             opdaterAktivSpillerMedSlag(feltId, slag);
 
@@ -92,7 +92,7 @@ public class Spil {
         }
     }
 
-    private void spilRegler(int feltId) {
+    private int spilRegler(int feltId) {
         if (aktivSpiller.isiFaengsel()){
             if (!aktivSpiller.isFriFaengsel()){
                 System.out.println("[INFO] " + aktivSpiller.getNavn() + " Har betalt " +
@@ -117,13 +117,14 @@ public class Spil {
 
             if (aktivSpiller.isChanceFelt()){
                 chanceFeltHandling(aktivSpiller);
+                return aktivSpiller.getFelt();
             }
-            System.out.println("er " + aktivSpiller.getFelt());
 
         }else {
 
         }
 
+        return feltId;
     }
 
     private void chanceFeltHandling(Spiller aktivSpiller) {
@@ -149,7 +150,6 @@ public class Spil {
             if (tempFelt instanceof EjendomFelt){
                 ((EjendomFelt) tempFelt).feltHandling(aktivSpiller, 0);
                 aktivSpiller.setFelt(feltIndex);
-                System.out.println("burde være " + feltIndex);
             }
 
 
