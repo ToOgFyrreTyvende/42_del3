@@ -19,6 +19,10 @@ public class Spiller {
     private int sidstSlaaet = 0;
     private boolean iFaengsel = false;
 
+    private ChanceKort chanceKort;
+    private boolean chanceFelt = false;
+    private boolean friFaengsel = false;
+
     // #----------Constructor----------#
     public Spiller(String navn){
         // Vælg spiller navn selv
@@ -56,6 +60,18 @@ public class Spiller {
         this.sidstSlaaet = sidstSlaaet;
     }
 
+    public void setChaneKort(ChanceKort chanceKort) {
+        this.chanceKort = chanceKort;
+    }
+
+    public void setFriFaengsel(boolean friFaengsel) {
+        this.friFaengsel = friFaengsel;
+    }
+
+    public void setChanceFelt(boolean chanceFelt) {
+        this.chanceFelt = chanceFelt;
+    }
+
     // #--------------Get--------------#
     public String getNavn(){
         // Returnerer spiller navn
@@ -64,6 +80,18 @@ public class Spiller {
 
     public int getSidstSlaaet() {
         return sidstSlaaet;
+    }
+
+    public ChanceKort getChanceKort() {
+        return chanceKort;
+    }
+
+    public boolean isFriFaengsel() {
+        return friFaengsel;
+    }
+
+    public boolean isChanceFelt() {
+        return chanceFelt;
     }
 
     // #-------------Other-------------#

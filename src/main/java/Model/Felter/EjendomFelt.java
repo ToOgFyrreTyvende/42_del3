@@ -50,6 +50,35 @@ public class EjendomFelt extends Felt {
 
     }
 
+    @Override
+    public void feltHandling(Spiller spiller) {
+        if (this.erEjet()){
+            System.out.println("[INFO] " + spiller.getNavn() + " Har betalt " +
+                    this.getPris() + " til " +
+                    this.getEjer().getNavn());
+            betalTilSpillerFelt(spiller);
+        }else{
+            System.out.println("[INFO] " + spiller.getNavn() + " Har købt " +
+                    this.getNavn() + " for " +
+                    this.getPris());
+            koebFelt(spiller);
+        }
+    }
+
+    public void betalTilSpillerFelt(Spiller spiller){
+        Spiller ejer = this.getEjer();
+        int betaling = this.getLeje();
+        spiller.addPenge( - betaling);
+        ejer.addPenge(betaling);
+    }
+
+    private void koebFelt(Spiller spiller) {
+        int betaling = this.getPris();
+        spiller.addPenge( - betaling);
+        this.setEjer(spiller);
+    }
+
+
     public int getPris() {
         return pris;
     }
@@ -60,6 +89,11 @@ public class EjendomFelt extends Felt {
 
     public Spiller getEjer() {
         return ejer;
+    }
+
+    public boolean erEjet(){
+        Spiller ejer = this.getEjer();
+        return ejer != null;
     }
 
     public Color getFarve() {
