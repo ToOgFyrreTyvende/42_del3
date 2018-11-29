@@ -1,6 +1,10 @@
 package Model.Felter;
 
 import Model.Felt;
+import gui_fields.GUI_Chance;
+import gui_fields.GUI_Field;
+
+import java.awt.*;
 
 public class ChanceFelt extends Felt {
 
@@ -22,5 +26,10 @@ public class ChanceFelt extends Felt {
     @Override
     public String getBeskrivelse() {
         return super.getBeskrivelse();
+    }
+
+    @Override
+    public GUI_Field lavGUIFelt() {
+        return new GUI_Chance("?", this.getSubText(), this.getBeskrivelse(), Color.white, Color.black);
     }
 }

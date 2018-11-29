@@ -1,5 +1,7 @@
 package Model;
 
+import gui_fields.GUI_Field;
+
 /**
  * -------------------------------------------------
  * Denne superklasse bruges til at gøre det nemmere
@@ -17,6 +19,8 @@ public abstract class Felt {
         this.subText=subText;
         this.beskrivelse=beskrivelse;
     }
+
+    abstract public GUI_Field lavGUIFelt();
 
     // #--------------Get--------------#
     public String getNavn() {

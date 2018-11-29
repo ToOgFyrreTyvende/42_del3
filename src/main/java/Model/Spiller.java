@@ -17,6 +17,7 @@ public class Spiller {
     private String navn;
     private int pengebeholdning = 1;
     private int sidstSlaaet = 0;
+    private boolean iFaengsel = false;
 
     // #----------Constructor----------#
     public Spiller(String navn){
@@ -33,6 +34,14 @@ public class Spiller {
         // Returnerer nye felt af spiller
         felt = nyFelt;
         return felt;
+    }
+
+    public boolean isiFaengsel() {
+        return iFaengsel;
+    }
+
+    public void setiFaengsel(boolean iFaengsel) {
+        this.iFaengsel = iFaengsel;
     }
 
     public int getPenge(){

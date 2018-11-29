@@ -1,5 +1,8 @@
 package Model;
 
+import Model.Felter.EjendomFelt;
+import Model.Felter.TilFaengselFelt;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +30,7 @@ public class Spil {
 
     // #----------Constructor----------#
 
-    public Spil(String[] spillerNavne){
+    public Spil(GameBoard sb, String[] spillerNavne){
         opretSpillere(spillerNavne);
 
         //Kodedelen med runder er taget fra vores forrige opgave: 42_del1
@@ -35,10 +38,10 @@ public class Spil {
         runder.add(new Runde());
         terning = new Terning();
 
-        this.spilBraet = new GameBoard();
-
         aktivSpiller = spillere[0];
         aktivRunde = runder.get(runder.size()-1);
+
+        spilBraet = sb;
 
         afsluttet = false;
     }
@@ -66,11 +69,9 @@ public class Spil {
 
             Spiller _aktivSpiller = aktivSpiller;
 
-            int nyFelt = (aktivSpiller.getFelt() + slag) % 24;
+            spilRegler(slag);
 
-            aktivSpiller.setFelt(nyFelt);
-            aktivSpiller.addPenge(spilBraet.getFeltPenge(nyFelt));
-            aktivSpiller.setSidstSlaaet(slag);
+            opdaterAktivSpillerMedSlag(slag);
 
             aktivRunde.tilfoejTur(tempTur);
             aktivSpiller = spillere[nyIndex];
@@ -81,6 +82,70 @@ public class Spil {
         }else{
             return null;
         }
+    }
+
+    private void spilRegler(int slag) {
+        if (aktivSpiller.isiFaengsel()){
+            aktivSpiller.addPenge(-1);
+            aktivSpiller.setiFaengsel(false);
+            checkRunde();
+        }
+
+        if (!afsluttet){
+            int feltId = aktivSpiller.getFelt() + slag;
+            Felt landetFelt = this.getSpilBraet().getFeltModel(feltId);
+            ejendomBetal(feltId, landetFelt);
+            //chancekort skal tilføjes...
+            tjekTilFaengsel(feltId, landetFelt);
+
+
+
+        }else {
+
+        }
+
+    }
+
+    private void ejendomBetal(int feltId, Felt landetFelt) {
+        if (landetFelt instanceof EjendomFelt) {
+            if (this.getSpilBraet().erEjet(feltId)){
+                System.out.println(aktivSpiller.getNavn() + " Har købt " + landetFelt.getNavn());
+                betalTilSpillerFelt(aktivSpiller, (EjendomFelt) landetFelt);
+            }else{
+                koebFelt(aktivSpiller, (EjendomFelt) landetFelt);
+            }
+        }
+    }
+
+    public void betalTilSpillerFelt(Spiller spiller, EjendomFelt landetFelt){
+        Spiller ejer = landetFelt.getEjer();
+        int betaling = landetFelt.getLeje();
+        spiller.addPenge( - betaling);
+        ejer.addPenge(betaling);
+    }
+
+    private void koebFelt(Spiller spiller, EjendomFelt landetFelt) {
+        int betaling = landetFelt.getPris();
+        spiller.addPenge( - betaling);
+    }
+
+    private void tjekTilFaengsel(int feltId, Felt landetFelt) {
+        if (landetFelt instanceof TilFaengselFelt) {
+            smidIFaengsel(aktivSpiller);
+        }
+    }
+
+    public void smidIFaengsel(Spiller spiller){
+        spiller.setFelt(spilBraet.getFaengsel());
+        spiller.setiFaengsel(true);
+    }
+
+
+    private void opdaterAktivSpillerMedSlag(int slag) {
+        int nyFelt = (aktivSpiller.getFelt() + slag) % 24;
+
+        aktivSpiller.setFelt(nyFelt);
+        aktivSpiller.setSidstSlaaet(slag);
     }
 
     //godt og grundigt Yoinked direkte fra vores 42_del1 af CDIO
@@ -179,4 +244,13 @@ public class Spil {
     public void setStartPenge(int startPenge) {
         this.startPenge = startPenge;
     }
+
+    public GameBoard getSpilBraet() {
+        return spilBraet;
+    }
+
+    public void setSpilBraet(GameBoard spilBraet) {
+        this.spilBraet = spilBraet;
+    }
+
 }
