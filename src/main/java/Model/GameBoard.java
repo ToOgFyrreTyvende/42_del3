@@ -17,75 +17,51 @@ public class GameBoard {
         this.felterModel = lavFelter();
 
         for (int i = 0; i < felterGUI.length; i++) {
-            GUI_Field temp = GUIfeltFraFelt(felterModel[i]);
+            GUI_Field temp = felterModel[i].lavGUIFelt();
             felterGUI[i] = temp;
-        }
-    }
-
-    private GUI_Field GUIfeltFraFelt(Felt felt) {
-        if (felt instanceof EjendomFelt){
-            return new GUI_Street(felt.getNavn(), felt.getSubText(),
-                        felt.getBeskrivelse(), ((EjendomFelt) felt).getPris() + "M", Color.blue, Color.black);
-        }
-        else if (felt instanceof ChanceFelt){
-            return new GUI_Chance(felt.getNavn(), felt.getSubText(), felt.getBeskrivelse(), Color.white, Color.white);
-        }
-        else if (felt instanceof FaengselFelt){
-            return new GUI_Refuge();
-
-        }
-        else if (felt instanceof TilFaengselFelt) {
-            return new GUI_Jail();
-        }
-        else if (felt instanceof StartFelt) {
-            return new GUI_Start();
-        }
-        else{
-            return new GUI_Empty(Color.white, Color.white, felt.getNavn(),
-                    felt.getSubText(), felt.getBeskrivelse());
         }
     }
 
     private Felt[] lavFelter() {
         Felt[] tempFelter = {
                 new StartFelt("Start", "2M", "Få 2M når du passerer!"),
-                new EjendomFelt("Burgerbaren", "Pris: 1M", "", 1),
-                new EjendomFelt("Burgerbaren", "Pris: 1M", "", 1),
+                new EjendomFelt("Burgerbaren", "Pris: 1M", "Burgerbaren", 1, Color.gray),
+                new EjendomFelt("Pizzahuset", "Pris: 1M", "Pizzahuset", 1, Color.gray),
 
                 new ChanceFelt("Chance", "Chance", "Tag et chancekort"),
 
-                new EjendomFelt("Burgerbaren", "Pris: 1M", "", 1),
-                new EjendomFelt("Burgerbaren", "Pris: 1M", "", 1),
+                new EjendomFelt("Slikbutikken", "Pris: 1M", "Slikbutikken", 1, Color.blue),
+                new EjendomFelt("Iskiosken", "Pris: 1M", "Iskiosken", 1, Color.blue),
 
-                new FaengselFelt("Fængsel", "Eller på besøg", "Enten er du endt i fængsel, ellers er du på besøg"),
+                new FaengselFelt("Fængsel", "På besøg", "Enten er du endt i fængsel, eller er du på besøg."),
 
-                new EjendomFelt("Burgerbaren", "Pris: 1M", "", 1),
-                new EjendomFelt("Burgerbaren", "Pris: 1M", "", 1),
-
-                new ChanceFelt("Chance", "Chance", "Tag et chancekort"),
-
-                new EjendomFelt("Burgerbaren", "Pris: 1M", "", 1),
-                new EjendomFelt("Burgerbaren", "Pris: 1M", "", 1),
-
-                new GratisParkeringFelt("Gratis", "Parkering", "Hold en fridag"),
-
-                new EjendomFelt("Burgerbaren", "Pris: 1M", "", 1),
-                new EjendomFelt("Burgerbaren", "Pris: 1M", "", 1),
+                new EjendomFelt("Museet", "Pris: 2M", "Museet", 2, Color.pink),
+                new EjendomFelt("Biblioteket", "Pris: 2M", "Biblioteket", 2, Color.pink),
 
                 new ChanceFelt("Chance", "Chance", "Tag et chancekort"),
 
-                new EjendomFelt("Burgerbaren", "Pris: 1M", "", 1),
-                new EjendomFelt("Burgerbaren", "Pris: 1M", "", 1),
+                new EjendomFelt("Skaterparken", "Pris: 2M", "Skaterparken", 2, Color.yellow),
+                new EjendomFelt("Swimmingpoolen", "Pris: 2M", "Swimmingpoolen", 2, Color.yellow),
+
+                new GratisParkeringFelt("Fri", "Gratis Parkering", "Hold en fridag"),
+
+                new EjendomFelt("Spillehallen", "Pris: 3M", "Spillehallen", 3, Color.red),
+                new EjendomFelt("Biograf", "Pris: 3M", "Biograf", 3, Color.red),
+
+                new ChanceFelt("Chance", "Chance", "Tag et chancekort"),
+
+                new EjendomFelt("Legetøjsbutik", "Pris: 3M", "Legetøjsbutik", 3, Color.orange),
+                new EjendomFelt("Dyrehandel", "Pris: 3M", "Dyrehandel", 3, Color.orange),
 
                 new TilFaengselFelt("Fængsel", "Gå til fængsel", "Øv, du skal til fængsel"),
 
-                new EjendomFelt("Burgerbaren", "Pris: 1M", "", 1),
-                new EjendomFelt("Burgerbaren", "Pris: 1M", "", 1),
+                new EjendomFelt("Bowlinghallen", "Pris: 4M", "Bowlinghallen", 4, Color.green),
+                new EjendomFelt("Zoo", "Pris: 4M", "Zoo", 4, Color.green),
 
                 new ChanceFelt("Chance", "Chance", "Tag et chancekort"),
 
-                new EjendomFelt("Burgerbaren", "Pris: 1M", "", 1),
-                new EjendomFelt("Burgerbaren", "Pris: 1M", "", 1)
+                new EjendomFelt("Vandlandet", "Pris: 5M", "Vandlandet", 5, Color.cyan),
+                new EjendomFelt("Strandpromenaden", "Pris: 5M", "Strandpromenaden", 5, Color.cyan)
         };
 
         return tempFelter;
@@ -105,7 +81,21 @@ public class GameBoard {
         return felterModel;
     }
 
+    public Felt getFeltModel(int index){
+        return felterModel[index % 24];
+    }
+
     public GUI_Field[] getFelterGUI() {
         return felterGUI;
     }
+
+    public boolean erEjet(int index){
+        Felt felt = this.getFelterModel()[index % 24];
+        if (felt instanceof EjendomFelt){
+            return ((EjendomFelt) felt).getEjer() == null;
+        }
+        return false;
+    }
+
+
 }

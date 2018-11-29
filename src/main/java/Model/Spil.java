@@ -1,5 +1,7 @@
 package Model;
 
+import Model.Felter.EjendomFelt;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,8 +37,6 @@ public class Spil {
         runder.add(new Runde());
         terning = new Terning();
 
-        this.spilBraet = new GameBoard();
-
         aktivSpiller = spillere[0];
         aktivRunde = runder.get(runder.size()-1);
 
@@ -66,11 +66,9 @@ public class Spil {
 
             Spiller _aktivSpiller = aktivSpiller;
 
-            int nyFelt = (aktivSpiller.getFelt() + slag) % 24;
+            spilRegler();
 
-            aktivSpiller.setFelt(nyFelt);
-            aktivSpiller.addPenge(spilBraet.getFeltPenge(nyFelt));
-            aktivSpiller.setSidstSlaaet(slag);
+            opdaterAktivSpillerMedSlag(slag);
 
             aktivRunde.tilfoejTur(tempTur);
             aktivSpiller = spillere[nyIndex];
@@ -81,6 +79,42 @@ public class Spil {
         }else{
             return null;
         }
+    }
+
+    private void spilRegler() {
+        if (aktivSpiller.isiFaengsel()){
+            aktivSpiller.addPenge(-1);
+            aktivSpiller.setiFaengsel(false);
+            checkRunde();
+        }
+
+        if (!afsluttet){
+            int feltId = aktivSpiller.getFelt();
+            Felt landetFelt = this.getSpilBraet().getFeltModel(feltId);
+            ejendomBetal(feltId, landetFelt);
+
+
+
+        }else {
+
+        }
+
+    }
+
+    private void ejendomBetal(int feltId, Felt landetFelt) {
+        if (landetFelt instanceof EjendomFelt) {
+            if (this.getSpilBraet().erEjet(feltId)){
+                betalTilSpillerFelt(aktivSpiller, (EjendomFelt) landetFelt);
+            }
+        }
+    }
+
+    private void opdaterAktivSpillerMedSlag(int slag) {
+        int nyFelt = (aktivSpiller.getFelt() + slag) % 24;
+
+        aktivSpiller.setFelt(nyFelt);
+        aktivSpiller.addPenge(spilBraet.getFeltPenge(nyFelt));
+        aktivSpiller.setSidstSlaaet(slag);
     }
 
     //godt og grundigt Yoinked direkte fra vores 42_del1 af CDIO
@@ -178,5 +212,18 @@ public class Spil {
 
     public void setStartPenge(int startPenge) {
         this.startPenge = startPenge;
+    }
+
+    public GameBoard getSpilBraet() {
+        return spilBraet;
+    }
+
+    public void setSpilBraet(GameBoard spilBraet) {
+        this.spilBraet = spilBraet;
+    }
+
+    public void betalTilSpillerFelt(Spiller spiller, EjendomFelt eFelt){
+        int betaling = eFelt.getLeje();
+        spiller.addPenge( - betaling);
     }
 }

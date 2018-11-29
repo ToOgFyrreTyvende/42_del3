@@ -1,6 +1,12 @@
 package Model.Felter;
 
 import Model.Felt;
+import gui_fields.GUI_Field;
+import gui_fields.GUI_Jail;
+import gui_fields.GUI_Refuge;
+
+
+import java.awt.*;
 
 public class TilFaengselFelt extends Felt {
 
@@ -22,5 +28,11 @@ public class TilFaengselFelt extends Felt {
     @Override
     public String getBeskrivelse() {
         return super.getBeskrivelse();
+    }
+
+    @Override
+    public GUI_Field lavGUIFelt() {
+        return new GUI_Jail("default", this.getNavn(), this.getSubText(),
+                this.getBeskrivelse(), Color.white, Color.BLACK);
     }
 }

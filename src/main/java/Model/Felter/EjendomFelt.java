@@ -2,6 +2,8 @@ package Model.Felter;
 
 import Model.Felt;
 import Model.Spiller;
+import gui_fields.GUI_Field;
+import gui_fields.GUI_Street;
 
 import java.awt.*;
 
@@ -18,9 +20,10 @@ public class EjendomFelt extends Felt {
     private Color farve;
 
     // #----------Constructor----------#
-    public EjendomFelt(String navn, String subText, String beskrivelse, int pris) {
+    public EjendomFelt(String navn, String subText, String beskrivelse, int pris, Color farve) {
         super(navn, subText, beskrivelse);
         this.pris = pris;
+        this.farve = farve;
     }
 
     // #--------------Get--------------#
@@ -37,6 +40,13 @@ public class EjendomFelt extends Felt {
     @Override
     public String getBeskrivelse() {
         return super.getBeskrivelse();
+    }
+
+    @Override
+    public GUI_Field lavGUIFelt() {
+        return new GUI_Street(this.getNavn(), this.getSubText(),
+                this.getBeskrivelse(), this.getPris() + "M", this.getFarve(), Color.black);
+
     }
 
     public int getPris() {

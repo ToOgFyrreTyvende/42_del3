@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.GameBoard;
 import Model.Spil;
 import Model.Spiller;
 import Model.Feltliste;
@@ -9,10 +10,12 @@ import View.GameView;
 public class SpilController{
     private Spil spil;
     private GameView view;
+    private GameBoard spilBraet;
     
     // #----------Constructor----------#
     public SpilController(){
-        this.view = new GameGUIView();
+        this.spilBraet = new GameBoard();
+        this.view = new GameGUIView(this.spilBraet);
         initialiserSpil();
         spillerTur(spil.getAktivSpiller());
 
