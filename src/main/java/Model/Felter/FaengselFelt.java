@@ -1,6 +1,7 @@
 package Model.Felter;
 
 import Model.Felt;
+import Model.Spiller;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Jail;
 
@@ -32,5 +33,10 @@ public class FaengselFelt extends Felt {
     public GUI_Field lavGUIFelt() {
         return new GUI_Jail("default", this.getNavn(), this.getSubText(),
                 this.getBeskrivelse(), Color.white, Color.BLACK);
+    }
+
+    @Override
+    public void feltHandling(Spiller spiller) {
+
     }
 }

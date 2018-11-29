@@ -22,6 +22,8 @@ public abstract class Felt {
 
     abstract public GUI_Field lavGUIFelt();
 
+    abstract public void feltHandling(Spiller spiller);
+
     // #--------------Get--------------#
     public String getNavn() {
         return navn;

@@ -10,9 +10,12 @@ public class GameBoard {
     private Felt[] felterModel;
     private GUI_Field[] felterGUI;
 
+    private ChanceKort[] chanceKort;
+
     public GameBoard() {
         this.felterModel = new Felt[24];
         this.felterGUI = new GUI_Field[24];
+        this.chanceKort = ChanceKort.opretKort();
 
         this.felterModel = lavFelter();
 
@@ -63,10 +66,7 @@ public class GameBoard {
                 new EjendomFelt("Vandlandet", "Pris: 5M", "Vandlandet", 5, Color.cyan),
                 new EjendomFelt("Strandpromenaden", "Pris: 5M", "Strandpromenaden", 5, Color.cyan)
         };
-
         return tempFelter;
-
-
     }
 
     public int getFeltPenge(int felt){
@@ -99,5 +99,35 @@ public class GameBoard {
         return 6;
     }
 
+    public ChanceKort[] getChanceKort() {
+        return chanceKort;
+    }
+
+    public void setChanceKort(ChanceKort[] chanceKort) {
+        this.chanceKort = chanceKort;
+    }
+
+    public ChanceKort tilfaeldigKort(){
+        float _random1 = (float) Math.random();
+        int _random2 = (int) (_random1 * (this.getChanceKort().length - 1));
+        int nr = _random2 + 1;
+
+        return this.getChanceKort()[nr];
+    }
+
+    public int taettestFarve(int index, Color farve){
+        Felt[] felter = this.getFelterModel();
+
+        for (int i = 0; i < felter.length; i++) {
+            int korrektIndex = i + index;
+            Felt tempFelt = felter[korrektIndex % 24];
+            if (tempFelt instanceof EjendomFelt &&
+                ((EjendomFelt) tempFelt).getFarve() == farve){
+                return korrektIndex % 24;
+            }
+        }
+
+        return -1;
+    }
 
 }

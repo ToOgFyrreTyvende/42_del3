@@ -1,6 +1,7 @@
 package Model.Felter;
 
 import Model.Felt;
+import Model.Spiller;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Refuge;
 import gui_fields.GUI_Start;
@@ -33,5 +34,9 @@ public class GratisParkeringFelt extends Felt {
     public GUI_Field lavGUIFelt() {
         return new GUI_Refuge("default", this.getNavn(), this.getSubText(), this.getBeskrivelse(), Color.white, Color.black);
 
+    }
+
+    @Override
+    public void feltHandling(Spiller spiller) {
     }
 }
