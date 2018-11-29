@@ -46,10 +46,10 @@ public class SpilController{
 
         int forrigeFelt = spiller.getFelt();
 
-        Spiller muligNySpiller = spil.spilTur();
+        Spiller muligSpiller = spil.spilTur();
 
-        if (muligNySpiller != null){
-            opdaterUIspiller(muligNySpiller, forrigeFelt);
+        if (muligSpiller != null){
+            opdaterUIspiller(muligSpiller, forrigeFelt);
             view.setTerning(spiller.getSidstSlaaet());
             spillerTur(spil.getAktivSpiller());
         }else {

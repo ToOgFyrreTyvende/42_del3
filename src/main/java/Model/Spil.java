@@ -15,6 +15,7 @@ import java.util.List;
 
 public class Spil {
     private final int RUNDE_PENGE = 2;
+    private final int FAENGSEL_PRIS = 1;
 
     private int[] muligeStartPenge = {20, 18, 16};
     private int startPenge;
@@ -89,7 +90,9 @@ public class Spil {
 
     private void spilRegler(int feltId) {
         if (aktivSpiller.isiFaengsel()){
-            aktivSpiller.addPenge(-1);
+            System.out.println("[INFO] " + aktivSpiller.getNavn() + " Har betalt " +
+                    FAENGSEL_PRIS + " For at komme ud af fængslet");
+            aktivSpiller.addPenge(- FAENGSEL_PRIS);
             aktivSpiller.setiFaengsel(false);
             checkRunde();
         }
@@ -116,9 +119,14 @@ public class Spil {
     private void ejendomBetal(int feltId, Felt landetFelt) {
         if (landetFelt instanceof EjendomFelt) {
             if (this.getSpilBraet().erEjet(feltId)){
+                System.out.println("[INFO] " + aktivSpiller.getNavn() + " Har betalt " +
+                        ((EjendomFelt) landetFelt).getPris() + " til " +
+                        ((EjendomFelt) landetFelt).getEjer().getNavn());
                 betalTilSpillerFelt(aktivSpiller, (EjendomFelt) landetFelt);
             }else{
-                System.out.println(aktivSpiller.getNavn() + " Har købt " + landetFelt.getNavn());
+                System.out.println("[INFO] " + aktivSpiller.getNavn() + " Har købt " +
+                        landetFelt.getNavn() + " for " +
+                        ((EjendomFelt) landetFelt).getPris());
                 koebFelt(aktivSpiller, (EjendomFelt) landetFelt);
             }
         }
@@ -150,8 +158,13 @@ public class Spil {
 
 
     private void opdaterAktivSpillerMedSlag(int feltId, int slag) {
-        aktivSpiller.setFelt(feltId);
-        aktivSpiller.setSidstSlaaet(slag);
+        if (aktivSpiller.isiFaengsel()){
+            aktivSpiller.setFelt(this.getSpilBraet().getFaengsel());
+            aktivSpiller.setSidstSlaaet(slag);
+        }else{
+            aktivSpiller.setFelt(feltId);
+            aktivSpiller.setSidstSlaaet(slag);
+        }
     }
 
     //godt og grundigt Yoinked direkte fra vores 42_del1 af CDIO
