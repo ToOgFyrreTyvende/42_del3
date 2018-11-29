@@ -18,8 +18,9 @@ public class EjendomFelt extends Felt {
     private Color farve;
 
     // #----------Constructor----------#
-    public EjendomFelt(String navn, String subText, String beskrivelse) {
+    public EjendomFelt(String navn, String subText, String beskrivelse, int pris) {
         super(navn, subText, beskrivelse);
+        this.pris = pris;
     }
 
     // #--------------Get--------------#
