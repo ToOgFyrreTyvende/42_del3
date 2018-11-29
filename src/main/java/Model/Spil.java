@@ -5,6 +5,7 @@ import Model.Felter.TilFaengselFelt;
 import Model.Kort.BetalKort;
 import Model.Kort.BlivBetaltKort;
 import Model.Kort.FaengselKort;
+import Model.Kort.GratisFeltKort;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +94,6 @@ public class Spil {
 
     private void spilRegler(int feltId) {
         if (aktivSpiller.isiFaengsel()){
-
             if (!aktivSpiller.isFriFaengsel()){
                 System.out.println("[INFO] " + aktivSpiller.getNavn() + " Har betalt " +
                         FAENGSEL_PRIS + " For at komme ud af fængslet");
@@ -118,6 +118,7 @@ public class Spil {
             if (aktivSpiller.isChanceFelt()){
                 chanceFeltHandling(aktivSpiller);
             }
+            System.out.println("er " + aktivSpiller.getFelt());
 
         }else {
 
@@ -139,9 +140,21 @@ public class Spil {
             }else{
                 aktivSpiller.addPenge(((BlivBetaltKort) kort).getPenge());
             }
-        }
+        }else if(kort instanceof GratisFeltKort){
+            int feltIndex = this.getSpilBraet().taettestFarve(
+                    aktivSpiller.getFelt(),
+                    ((GratisFeltKort) kort).getFarve());
+            Felt tempFelt = this.getSpilBraet().getFelterModel()[feltIndex];
 
-        System.out.println(aktivSpiller.getChanceKort().getClass().toString());
+            if (tempFelt instanceof EjendomFelt){
+                ((EjendomFelt) tempFelt).feltHandling(aktivSpiller, 0);
+                aktivSpiller.setFelt(feltIndex);
+                System.out.println("burde være " + feltIndex);
+            }
+
+
+        }
+        this.aktivSpiller.setChaneKort(null);
     }
 
     private void betaltAfAndre(int penge) {

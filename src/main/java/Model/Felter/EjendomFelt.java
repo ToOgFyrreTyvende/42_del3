@@ -65,6 +65,22 @@ public class EjendomFelt extends Felt {
         }
     }
 
+    public void feltHandling(Spiller spiller, int pris) {
+        if (this.erEjet()){
+            System.out.println("[INFO] " + spiller.getNavn() + " Har betalt " +
+                    this.getPris() + " til " +
+                    this.getEjer().getNavn());
+            betalTilSpillerFelt(spiller);
+        }else{
+            System.out.println("[INFO] " + spiller.getNavn() + " Har gratis fået " +
+                    this.getNavn());
+            if (pris == 0)
+                this.setEjer(spiller);
+        }
+    }
+
+
+
     public void betalTilSpillerFelt(Spiller spiller){
         Spiller ejer = this.getEjer();
         int betaling = this.getLeje();

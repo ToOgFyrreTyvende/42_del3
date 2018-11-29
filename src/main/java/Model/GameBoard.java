@@ -115,4 +115,19 @@ public class GameBoard {
         return this.getChanceKort()[nr];
     }
 
+    public int taettestFarve(int index, Color farve){
+        Felt[] felter = this.getFelterModel();
+
+        for (int i = 0; i < felter.length; i++) {
+            int korrektIndex = i + index;
+            Felt tempFelt = felter[korrektIndex % 24];
+            if (tempFelt instanceof EjendomFelt &&
+                ((EjendomFelt) tempFelt).getFarve() == farve){
+                return korrektIndex % 24;
+            }
+        }
+
+        return -1;
+    }
+
 }
