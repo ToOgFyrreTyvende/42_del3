@@ -4,7 +4,7 @@ package Model;
  * ------------------------------------------------------------/
  * Denne klasse bruges til at kaste 'x' antal terninger
  * med 'x' antal sider på hver
- * 
+ *
  * Klassen kaldes uden nogle parametre, eller med to parametre
  * fx. Model.Terning() eller Model.Terning(antalSider, antal)
  * hvor 'antalSider' er antallet af sider på terningen
@@ -14,39 +14,21 @@ package Model;
 
 public class Terning {
     private int resultat;
-    private int antalSider, antal;
+    private int antalSider;
 
 
     // #----------Constructor----------#
     public Terning() {
         this.antalSider = 6;
-        this.antal = 1;
-    }
-    public Terning(int antalSider, int antal) {
-        this.antalSider = antalSider;
-        this.antal = antal;
     }
 
     // #--------------Get--------------#
-    public int[] getResultat(){ // Returner en værdi af terningen.
-        int[] kast = new int[antal+1];
+    public int getResultat(){ // Returner en værdi af terningen.
         int sum = 0;
-        for (int i = 0 ; i < antal ; i++){
-            float _random1 = (float) Math.random();         // 0-1 float
-            int _random2 = (int) (_random1 * antalSider);   // 0-5 integer
-            int random = _random2 + 1;                      // 1-6 integer
-            kast[i] = random;
-            sum += random;
-        }
-        kast[kast.length-1] = sum;
-        return kast;
-    }
+        float _random1 = (float) Math.random();         // 0-1 float
+        int _random2 = (int) (_random1 * antalSider);   // 0-5 integer
+        resultat = _random2 + 1;                        // 1-6 integer
 
-    public int getAntalSider() {
-        return antalSider;
-    }
-
-    public int getAntal() {
-        return antal;
+        return resultat;
     }
 }

@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ------------------------------------------------------------/ 
- * Denne klasse er hoveddelen der kører hele spillet og diverse 
+ * ------------------------------------------------------------/
+ * Denne klasse er hoveddelen der kører hele spillet og diverse
  * klasser efter en bruger har åbnet programmet
  * ------------------------------------------------------------/
  */
@@ -30,12 +30,13 @@ public class Spil {
 
     private Terning terning;
     private List<Runde> runder;
-    private Runde aktivRunde;    
+    private Runde aktivRunde;
     private boolean afsluttet;
 
     private GameBoard spilBraet;
 
     // #----------Constructor----------#
+
     public Spil(GameBoard sb, String[] spillerNavne){
         opretSpillere(spillerNavne);
 
@@ -65,7 +66,7 @@ public class Spil {
         this.spillere = spillere;
     }
 
-    
+
     public Spiller spilTur(){
         if (!afsluttet) {
             int nuIndex = java.util.Arrays.asList(spillere).indexOf(aktivSpiller);
@@ -187,7 +188,7 @@ public class Spil {
 
     //godt og grundigt Yoinked direkte fra vores 42_del1 af CDIO
     public void checkRunde(){
-        // Vi tjekker om den nuværende spiller er den sidste psiller i spiller listen. Dette gør, at 
+        // Vi tjekker om den nuværende spiller er den sidste psiller i spiller listen. Dette gør, at
         // alle spillere har mulighed for at vinde i slutningen af en runde
 
         for (int i = 0; i < spillere.length; i++) {
