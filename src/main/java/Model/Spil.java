@@ -194,6 +194,7 @@ public class Spil {
         for (int i = 0; i < spillere.length; i++) {
             if (spillere[i].getPenge() <= 0){
                 afsluttet = true;
+                this.setVinder(this.findVinder());
             }
         }
     }

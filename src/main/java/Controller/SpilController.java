@@ -57,6 +57,8 @@ public class SpilController{
 
             spillerTur(spil.getAktivSpiller());
         }else {
+            view.setCenterTekst("SPILLET ER AFSLUTTET\nVinderen er spiller: " +
+                    this.spil.getVinder().getNavn());
             view.slutTekst("spillet er slut!");
         }
     }
