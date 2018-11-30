@@ -97,8 +97,10 @@ public class Spil {
             if (!aktivSpiller.isFriFaengsel()){
                 System.out.println("[INFO] " + aktivSpiller.getNavn() + " Har betalt " +
                         FAENGSEL_PRIS + " For at komme ud af fængslet");
+                aktivSpiller.setSidsteHandling("\n - Har betalt for fængsel.");
                 aktivSpiller.addPenge(- FAENGSEL_PRIS);
             }else{
+                aktivSpiller.setSidsteHandling("\n - Har brugt sit løsladelses chancekort.");
                 System.out.println("[INFO] " + aktivSpiller.getNavn() + " Kom ud af fængslet med deres 'frikort'");
             }
 
@@ -109,6 +111,7 @@ public class Spil {
         if (!afsluttet){
             if (feltId < aktivSpiller.getFelt()){
                 System.out.println("[INFO] " + aktivSpiller.getNavn() + " har passeret start. +2M");
+                aktivSpiller.setSidsteHandling(aktivSpiller.getSidsteHandling() + "\n - Har fået 2M for at passere start.");
                 tilFoejStartPenge(aktivSpiller);
             }
             Felt landetFelt = this.getSpilBraet().getFeltModel(feltId);
@@ -136,7 +139,11 @@ public class Spil {
         if (kort instanceof BlivBetaltKort){
             if (((BlivBetaltKort) kort).isAndre()){
                 betaltAfAndre(((BlivBetaltKort) kort).getPenge());
+                aktivSpiller.setSidsteHandling(aktivSpiller.getSidsteHandling() + "\n - Har fået " + ((BlivBetaltKort) kort).getPenge()
+                        + "M fra hver af de andre spillere.");
             }else{
+                aktivSpiller.setSidsteHandling(aktivSpiller.getSidsteHandling() + "\n - Har fået " + ((BlivBetaltKort) kort).getPenge()
+                        + "M fra banken.");
                 aktivSpiller.addPenge(((BlivBetaltKort) kort).getPenge());
             }
         }else if(kort instanceof GratisFeltKort){
@@ -150,9 +157,7 @@ public class Spil {
                 aktivSpiller.setFelt(feltIndex);
             }
 
-
         }
-        this.aktivSpiller.setChaneKort(null);
     }
 
     private void betaltAfAndre(int penge) {

@@ -50,7 +50,11 @@ public class SpilController{
 
         if (muligSpiller != null){
             opdaterUIspiller(muligSpiller, forrigeFelt);
-            view.setTerning(spiller.getSidstSlaaet());
+            view.setTerning(muligSpiller.getSidstSlaaet());
+            view.setCenterTekst(muligSpiller.toString());
+            muligSpiller.setChaneKort(null);
+            muligSpiller.setSidsteHandling("");
+
             spillerTur(spil.getAktivSpiller());
         }else {
             view.slutTekst("spillet er slut!");

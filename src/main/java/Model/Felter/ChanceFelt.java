@@ -36,6 +36,8 @@ public class ChanceFelt extends Felt {
 
     @Override
     public void feltHandling(Spiller spiller) {
+        spiller.setSidsteHandling(spiller.getSidsteHandling() + "\n - Er landet på et chancekort.");
+
         spiller.setChanceFelt(true);
     }
 }

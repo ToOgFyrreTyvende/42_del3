@@ -1,5 +1,6 @@
 package View;
 
+import Model.ChanceKort;
 import Model.GameBoard;
 import Model.Spil;
 import Model.Spiller;
@@ -26,6 +27,10 @@ public abstract class GameView {
     public abstract void slutTekst(String tekst);
 
     public abstract void setTerning(int slag);
+
+
+
+    public abstract void setCenterTekst(String tekst);
 
     public GameBoard getSpilBraet() {
         return spilBraet;

@@ -12,6 +12,7 @@ public class FaengselKort extends ChanceKort {
     @Override
     public void kortHandling(Spiller spiller) {
         super.kortHandling(spiller);
+        spiller.setSidsteHandling(spiller.getSidsteHandling() + "\n - Har et kort til gratis løsladelse.");
         spiller.setFriFaengsel(true);
     }
 }
