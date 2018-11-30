@@ -37,7 +37,6 @@ class SpilControllerTest {
 
     @Test
     void spilAktivtTest() {
-
-        assertTrue(!testSpilCtrl.spilAktivt());
+        assertTrue(testSpilCtrl.getSpil().isAfsluttet());
     }
 }

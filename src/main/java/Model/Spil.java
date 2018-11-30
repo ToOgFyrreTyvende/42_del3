@@ -258,4 +258,7 @@ public class Spil {
         return RUNDE_PENGE;
     }
 
+    public boolean isAfsluttet() {
+        return afsluttet;
+    }
 }

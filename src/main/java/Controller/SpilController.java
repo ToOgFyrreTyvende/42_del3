@@ -57,6 +57,7 @@ public class SpilController{
 
             spillerTur(spil.getAktivSpiller());
         }else {
+            view.opdaterSpillerData(spiller, forrigeFelt);
             view.setCenterTekst("SPILLET ER AFSLUTTET\nVinderen er: " +
                     this.spil.getVinder().getNavn());
             view.slutTekst("spillet er slut!");
@@ -67,4 +68,7 @@ public class SpilController{
         view.opdaterSpillerData(spiller, forrigeFelt);
     }
 
+    public Spil getSpil() {
+        return spil;
+    }
 }
