@@ -15,5 +15,6 @@ public class RykKort extends ChanceKort {
     public void kortHandling(Spiller spiller) {
         super.kortHandling(spiller);
         spiller.setFelt(feltIndex);
+        spiller.setSidsteHandling(spiller.getSidsteHandling() + "\n - Er rykket til feltet " + feltIndex + 1);
     }
 }

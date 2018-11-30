@@ -53,25 +53,25 @@ public class EjendomFelt extends Felt {
     @Override
     public void feltHandling(Spiller spiller) {
         if (this.erEjet()){
-            System.out.println("[INFO] " + spiller.getNavn() + " Har betalt " +
-                    this.getPris() + " til " +
-                    this.getEjer().getNavn());
-            betalTilSpillerFelt(spiller);
+            betalTilSpillerLogik(spiller);
         }else{
+            spiller.setSidsteHandling(spiller.getSidsteHandling() + "\n - Har købt " +
+                    this.getNavn() + " for " +
+                    this.getPris() + "M");
+
             System.out.println("[INFO] " + spiller.getNavn() + " Har købt " +
                     this.getNavn() + " for " +
-                    this.getPris());
+                    this.getPris()+ "M");
             koebFelt(spiller);
         }
     }
 
     public void feltHandling(Spiller spiller, int pris) {
         if (this.erEjet()){
-            System.out.println("[INFO] " + spiller.getNavn() + " Har betalt " +
-                    this.getPris() + " til " +
-                    this.getEjer().getNavn());
-            betalTilSpillerFelt(spiller);
+            betalTilSpillerLogik(spiller);
         }else{
+            spiller.setSidsteHandling(spiller.getSidsteHandling() + "\n - Har fået " +
+                    this.getNavn() + " GRATIS!");
             System.out.println("[INFO] " + spiller.getNavn() + " Har gratis fået " +
                     this.getNavn());
             if (pris == 0)
@@ -79,7 +79,16 @@ public class EjendomFelt extends Felt {
         }
     }
 
+    private void betalTilSpillerLogik(Spiller spiller) {
+        spiller.setSidsteHandling(spiller.getSidsteHandling() + "\n - Har betalt " +
+                this.getPris() + "M til " +
+                this.getEjer().getNavn());
 
+        System.out.println("[INFO] " + spiller.getNavn() + " Har betalt " +
+                this.getPris() + "M til " +
+                this.getEjer().getNavn());
+        betalTilSpillerFelt(spiller);
+    }
 
     public void betalTilSpillerFelt(Spiller spiller){
         Spiller ejer = this.getEjer();

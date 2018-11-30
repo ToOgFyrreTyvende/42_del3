@@ -1,5 +1,6 @@
 package View;
 
+import Model.ChanceKort;
 import Model.GameBoard;
 import Model.Spiller;
 import gui_fields.*;
@@ -120,4 +121,9 @@ public class GameGUIView extends GameView {
         this.ui.setDice(1,2,1,slag,2,1);
     }
 
+
+    @Override
+    public void setCenterTekst(String tekst) {
+        ui.displayChanceCard(tekst);
+    }
 }
