@@ -23,6 +23,8 @@ public class Spiller {
     private boolean chanceFelt = false;
     private boolean friFaengsel = false;
 
+    private String sidsteHandling = "";
+
     // #----------Constructor----------#
     public Spiller(String navn){
         // Vælg spiller navn selv
@@ -94,8 +96,25 @@ public class Spiller {
         return chanceFelt;
     }
 
+    public String getSidsteHandling() {
+        return sidsteHandling;
+    }
+
     // #-------------Other-------------#
     public void addPenge(int penge){
         this.pengebeholdning = pengebeholdning + penge;
+    }
+
+    public void setSidsteHandling(String sidsteHandling) {
+        this.sidsteHandling = sidsteHandling;
+    }
+
+    @Override
+    public String toString() {
+        if (this.sidsteHandling.equals("")) {
+            return "Spiller: " + this.getNavn() + " er landet på " + this.getFelt();
+        }else {
+            return "Spiller: " + this.getNavn() + " " + this.getSidsteHandling();
+        }
     }
 }

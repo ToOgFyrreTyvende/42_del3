@@ -13,6 +13,8 @@ public class BetalKort extends ChanceKort {
 
     @Override
     public void kortHandling(Spiller spiller) {
+        spiller.setSidsteHandling(spiller.getSidsteHandling() + "\n - Har ved chancekort betalt " + this.penge + "M til banken");
+
         super.kortHandling(spiller);
         if (penge < 20 && penge > 0){
             spiller.addPenge(- penge);

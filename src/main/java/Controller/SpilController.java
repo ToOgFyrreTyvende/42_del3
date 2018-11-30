@@ -13,9 +13,11 @@ public class SpilController{
     private GameBoard spilBraet;
     
     // #----------Constructor----------#
-    public SpilController(){
-        this.spilBraet = new GameBoard();
-        this.view = new GameGUIView(this.spilBraet);
+    public SpilController(GameBoard braet, GameView view){
+        this.spilBraet = braet;
+        this.view = view;
+        this.view.setSpilBraet(this.spilBraet);
+
         initialiserSpil();
         spillerTur(spil.getAktivSpiller());
 
@@ -48,11 +50,17 @@ public class SpilController{
 
         Spiller muligSpiller = spil.spilTur();
 
-        if (muligSpiller != null){
+        if (muligSpiller != null && !this.spil.isAfsluttet()){
             opdaterUIspiller(muligSpiller, forrigeFelt);
-            view.setTerning(spiller.getSidstSlaaet());
+            view.setTerning(muligSpiller.getSidstSlaaet());
+            view.setCenterTekst(muligSpiller.toString());
+            muligSpiller.setChaneKort(null);
+            muligSpiller.setSidsteHandling("");
+
             spillerTur(spil.getAktivSpiller());
         }else {
+            view.setCenterTekst("SPILLET ER AFSLUTTET\nVinderen er spiller: " +
+                    this.spil.getVinder().getNavn());
             view.slutTekst("spillet er slut!");
         }
     }

@@ -45,6 +45,7 @@ public class TilFaengselFelt extends Felt {
     }
 
     public void smidIFaengsel(Spiller spiller){
+        spiller.setSidsteHandling(spiller.getSidsteHandling() + "\n - Er sat i fængsel");
         spiller.setFelt(FAENGSEL_ID);
         spiller.setiFaengsel(true);
     }

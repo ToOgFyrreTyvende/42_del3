@@ -1,11 +1,19 @@
 package stub;
 
+import Model.Terning;
+
 /**
  * terningStub
  */
-public class TerningStub {
+public class TerningStub extends Terning {
+    int testRes;
 
-    public int[] getResultat() {
-        return new int[]{6,6,10};
+    public TerningStub(int testRes) {
+        this.testRes = testRes;
+    }
+
+    @Override
+    public int getResultat() {
+        return testRes;
     }
 }

@@ -1,3 +1,5 @@
+package Model;
+
 import Model.Konto;
 import org.junit.jupiter.api.Test;
 

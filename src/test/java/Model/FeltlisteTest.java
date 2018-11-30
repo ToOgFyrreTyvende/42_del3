@@ -1,3 +1,5 @@
+package Model;
+
 import Model.Feltliste;
 import org.junit.jupiter.api.Test;
 
