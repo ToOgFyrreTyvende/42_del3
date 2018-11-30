@@ -92,7 +92,7 @@ public class Spil {
         }
     }
 
-    private int spilRegler(int feltId) {
+    public int spilRegler(int feltId) {
         if (aktivSpiller.isiFaengsel()){
             if (!aktivSpiller.isFriFaengsel()){
                 System.out.println("[INFO] " + aktivSpiller.getNavn() + " Har betalt " +
@@ -286,6 +286,18 @@ public class Spil {
 
     public void setSpilBraet(GameBoard spilBraet) {
         this.spilBraet = spilBraet;
+    }
+
+    public int getRUNDE_PENGE() {
+        return RUNDE_PENGE;
+    }
+
+    public int getFAENGSEL_PRIS() {
+        return FAENGSEL_PRIS;
+    }
+
+    public int[] getMuligeStartPenge() {
+        return muligeStartPenge;
     }
 
 }
