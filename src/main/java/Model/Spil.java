@@ -1,5 +1,12 @@
 package Model;
 
+import Model.Felter.EjendomFelt;
+import Model.Felter.TilFaengselFelt;
+import Model.Kort.BetalKort;
+import Model.Kort.BlivBetaltKort;
+import Model.Kort.FaengselKort;
+import Model.Kort.GratisFeltKort;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +18,12 @@ import java.util.List;
  */
 
 public class Spil {
+    private final int RUNDE_PENGE = 2;
+    private final int FAENGSEL_PRIS = 1;
+
+    private int[] muligeStartPenge = {20, 18, 16};
+    private int startPenge;
+
     private Spiller[] spillere;
     private Spiller vinder;
     private Spiller aktivSpiller;
@@ -20,26 +33,11 @@ public class Spil {
     private Runde aktivRunde;    
     private boolean afsluttet;
 
-    private int vinderPenge = 3000;
+    private GameBoard spilBraet;
 
     // #----------Constructor----------#
-    public Spil(String spiller1navn, String spiller2navn){
-        this.spillere = new Spiller[]{
-            new Spiller(spiller1navn), 
-            new Spiller(spiller2navn)
-        };
-        //Kodedelen med runder er taget fra vores forrige opgave: 42_del1    
-        runder = new ArrayList<>();
-        runder.add(new Runde());
-        terning = new Terning();
 
-        aktivSpiller = spillere[0];
-        aktivRunde = runder.get(runder.size()-1);
-
-        afsluttet = false;
-    }
-
-    public Spil(String[] spillerNavne){
+    public Spil(GameBoard sb, String[] spillerNavne){
         opretSpillere(spillerNavne);
 
         //Kodedelen med runder er taget fra vores forrige opgave: 42_del1
@@ -50,136 +48,260 @@ public class Spil {
         aktivSpiller = spillere[0];
         aktivRunde = runder.get(runder.size()-1);
 
+        spilBraet = sb;
+
         afsluttet = false;
     }
 
     private void opretSpillere(String[] spillerNavne){
+
+        this.startPenge = muligeStartPenge[spillerNavne.length - 2];
+
         Spiller[] spillere = new Spiller[spillerNavne.length];
         for (int i = 0; i < spillerNavne.length; i++) {
             spillere[i] = new Spiller(spillerNavne[i]);
+            spillere[i].setPenge(startPenge);
         }
 
         this.spillere = spillere;
     }
 
     
-    public String spilTur(){
+    public Spiller spilTur(){
         if (!afsluttet) {
             int nuIndex = java.util.Arrays.asList(spillere).indexOf(aktivSpiller);
-            int nyIndex = nuIndex == 1 ? 0 : 1;
-            int[] slag = terning.getResultat();
-            int[] tempTur = {slag[0], slag[1], slag[2], nuIndex};
-            boolean ekstraTur;
+            int nyIndex = (nuIndex + 1) % spillere.length;
+            int slag = terning.getResultat();
+            int[] tempTur = {slag, nuIndex};
 
             Spiller _aktivSpiller = aktivSpiller;
+            int feltId = (aktivSpiller.getFelt() + slag) % 24;
 
-            int feltFraSlag = slag[2] - 2;
-            int pengeFraFelt = getFeltPenge(feltFraSlag);
+            feltId = spilRegler(feltId);
 
-            ekstraTur = Feltliste.getEkstraTur(feltFraSlag);
-            
-            aktivSpiller.addPenge(pengeFraFelt);
-            aktivSpiller.setFelt(feltFraSlag);
+            opdaterAktivSpillerMedSlag(feltId, slag);
 
             aktivRunde.tilfoejTur(tempTur);
-            this.aktivSpiller = spillere[nyIndex];
-            
-            // vinder skal have 3000 guld for at vinde, dette tjekkes her
-            checkRunde(nuIndex);
-            tjekEkstraTur(ekstraTur, nuIndex);
+            aktivSpiller = spillere[nyIndex];
 
-            return String.format(Feltliste.feltTekst.getString("TurnsRolled"),
-                    _aktivSpiller.getNavn(), slag[2]);
+            checkRunde();
+
+            return _aktivSpiller;
         }else{
-            return Feltliste.feltTekst.getString("GameEnd");
+            return null;
         }
     }
 
-    public void tjekEkstraTur(boolean ekstraTur, int spillerIndex) {
-        if(ekstraTur){
-            aktivSpiller = spillere[spillerIndex];
+    public int spilRegler(int feltId) {
+        if (aktivSpiller.isiFaengsel()){
+            if (!aktivSpiller.isFriFaengsel()){
+                System.out.println("[INFO] " + aktivSpiller.getNavn() + " Har betalt " +
+                        FAENGSEL_PRIS + " For at komme ud af fængslet");
+                aktivSpiller.setSidsteHandling("\n - Har betalt for fængsel.");
+                aktivSpiller.addPenge(- FAENGSEL_PRIS);
+            }else{
+                aktivSpiller.setSidsteHandling("\n - Har brugt sit løsladelses chancekort.");
+                System.out.println("[INFO] " + aktivSpiller.getNavn() + " Kom ud af fængslet med deres 'frikort'");
+            }
+
+            aktivSpiller.setiFaengsel(false);
+            checkRunde();
+        }
+
+        if (!afsluttet){
+            if (feltId < aktivSpiller.getFelt()){
+                System.out.println("[INFO] " + aktivSpiller.getNavn() + " har passeret start. +2M");
+                aktivSpiller.setSidsteHandling(aktivSpiller.getSidsteHandling() + "\n - Har fået 2M for at passere start.");
+                tilFoejStartPenge(aktivSpiller);
+            }
+            Felt landetFelt = this.getSpilBraet().getFeltModel(feltId);
+            landetFelt.feltHandling(aktivSpiller);
+            //chancekort skal tilføjes...
+
+            if (aktivSpiller.isChanceFelt()){
+                chanceFeltHandling(aktivSpiller);
+                return aktivSpiller.getFelt();
+            }
+
+        }
+
+        return feltId;
+    }
+
+    private void chanceFeltHandling(Spiller aktivSpiller) {
+        aktivSpiller.setChanceFelt(false);
+
+        ChanceKort kort = this.getSpilBraet().tilfaeldigKort();
+        aktivSpiller.setChaneKort(kort);
+
+        aktivSpiller.getChanceKort().kortHandling(aktivSpiller);
+
+        if (kort instanceof BlivBetaltKort){
+            if (((BlivBetaltKort) kort).isAndre()){
+                betaltAfAndre(((BlivBetaltKort) kort).getPenge());
+                aktivSpiller.setSidsteHandling(aktivSpiller.getSidsteHandling() + "\n - Har fået " + ((BlivBetaltKort) kort).getPenge()
+                        + "M fra hver af de andre spillere.");
+            }else{
+                aktivSpiller.setSidsteHandling(aktivSpiller.getSidsteHandling() + "\n - Har fået " + ((BlivBetaltKort) kort).getPenge()
+                        + "M fra banken.");
+                aktivSpiller.addPenge(((BlivBetaltKort) kort).getPenge());
+            }
+        }else if(kort instanceof GratisFeltKort){
+            int feltIndex = this.getSpilBraet().taettestFarve(
+                    aktivSpiller.getFelt(),
+                    ((GratisFeltKort) kort).getFarve());
+            Felt tempFelt = this.getSpilBraet().getFelterModel()[feltIndex];
+
+            if (tempFelt instanceof EjendomFelt){
+                ((EjendomFelt) tempFelt).feltHandling(aktivSpiller, 0);
+                aktivSpiller.setFelt(feltIndex);
+            }
+
+        }
+    }
+
+    private void betaltAfAndre(int penge) {
+        // Vi trækker penge fra alle spillere
+        for (Spiller spiller : spillere) {
+            spiller.addPenge(- penge);
+        }
+
+        // SIden vi fjerner antallet af penge fra alle spilelre. skal det tilføjes mængden af penge
+        // ganget med alle spillere til stede for at spilleren får den rigtige mængde
+        int antalAtFaa = penge * spillere.length - 1;
+        aktivSpiller.addPenge(antalAtFaa);
+    }
+
+    private void tilFoejStartPenge(Spiller spiller) {
+        spiller.addPenge(RUNDE_PENGE);
+    }
+
+    private void opdaterAktivSpillerMedSlag(int feltId, int slag) {
+        if (aktivSpiller.isiFaengsel()){
+            aktivSpiller.setFelt(this.getSpilBraet().getFaengsel());
+            aktivSpiller.setSidstSlaaet(slag);
+        }else{
+            aktivSpiller.setFelt(feltId);
+            aktivSpiller.setSidstSlaaet(slag);
         }
     }
 
     //godt og grundigt Yoinked direkte fra vores 42_del1 af CDIO
-    public void checkRunde(int spillerIndex){
+    public void checkRunde(){
         // Vi tjekker om den nuværende spiller er den sidste psiller i spiller listen. Dette gør, at 
         // alle spillere har mulighed for at vinde i slutningen af en runde
-        if (spillerIndex == spillere.length - 1){
-            Spiller muligVinder = spillerMedPenge(vinderPenge);
-            if(muligVinder != null){
-                this.setVinder(muligVinder);
-                this.slutSpil();
-            }
-            else {
-                this.runder.add(new Runde());
-                this.aktivRunde   = runder.get(runder.size() - 1);
-            }
-            
-        }
-    }
-    
-    private Spiller spillerMedPenge(int penge){
-        int fundet = 0;
-        int res    = 0;
-        
-        for(int i = 0; i < spillere.length; i++) {
-            if (spillere[i].getPenge() >= penge) {
-                fundet++;
-                res = i;
-            }
-        }
 
-        if (fundet == 1) {
-            return spillere[res];
-        }
-        else if (fundet > 1) {
-            if (spillere[0].getPenge() > spillere[1].getPenge()) {
-                return (spillere[0]);
-            }
-            else if (spillere[0].getPenge() < spillere[1].getPenge()){
-                return (spillere[1]);
-            }
-            else{
-                return null;
+        for (int i = 0; i < spillere.length; i++) {
+            if (spillere[i].getPenge() <= 0){
+                afsluttet = true;
+                this.setVinder(this.findVinder());
             }
         }
-        else
-            return null;
     }
 
-    // #--------------Get--------------#
-    private int getFeltPenge(int felt){
-        return Feltliste.getFeltPenge(felt);
-    }
- 
-    public Spiller getAktivSpiller(){
-        return aktivSpiller;
+    public Spiller findVinder() {
+
+        Spiller højest = null;
+
+        if (afsluttet) {
+            int max = 0;
+
+
+            for (int i = 0; i < spillere.length; i++) {
+                if (spillere[i].getPenge() > max) {
+                    max = spillere[i].getPenge();
+                    højest = spillere[i];
+                }
+            }
+        }
+        return (højest);
     }
 
-    public Spiller getVinder(){
-        return this.vinder;
-    }
+    // Getters & setters
+
 
     public Spiller[] getSpillere() {
-        return this.spillere;
+        return spillere;
     }
 
-    public int getVinderPenge(){ return vinderPenge; }
+    public void setSpillere(Spiller[] spillere) {
+        this.spillere = spillere;
+    }
 
-    // #-------------Set---------------#
+    public Spiller getVinder() {
+        return vinder;
+    }
 
-    private void setVinder(Spiller vinder){
+    public void setVinder(Spiller vinder) {
         this.vinder = vinder;
     }
 
-    // #-------------Other-------------#
-
-    public boolean spilAktivt(){
-        return !afsluttet;
+    public Spiller getAktivSpiller() {
+        return aktivSpiller;
     }
 
-    private void slutSpil(){
-        this.afsluttet = true;
+    public void setAktivSpiller(Spiller aktivSpiller) {
+        this.aktivSpiller = aktivSpiller;
     }
+
+    public Terning getTerning() {
+        return terning;
+    }
+
+    public void setTerning(Terning terning) {
+        this.terning = terning;
+    }
+
+    public List<Runde> getRunder() {
+        return runder;
+    }
+
+    public void setRunder(List<Runde> runder) {
+        this.runder = runder;
+    }
+
+    public Runde getAktivRunde() {
+        return aktivRunde;
+    }
+
+    public void setAktivRunde(Runde aktivRunde) {
+        this.aktivRunde = aktivRunde;
+    }
+
+    public boolean isAfsluttet() {
+        return afsluttet;
+    }
+
+    public void setAfsluttet(boolean afsluttet) {
+        this.afsluttet = afsluttet;
+    }
+
+    public int getStartPenge() {
+        return startPenge;
+    }
+
+    public void setStartPenge(int startPenge) {
+        this.startPenge = startPenge;
+    }
+
+    public GameBoard getSpilBraet() {
+        return spilBraet;
+    }
+
+    public void setSpilBraet(GameBoard spilBraet) {
+        this.spilBraet = spilBraet;
+    }
+
+    public int getRUNDE_PENGE() {
+        return RUNDE_PENGE;
+    }
+
+    public int getFAENGSEL_PRIS() {
+        return FAENGSEL_PRIS;
+    }
+
+    public int[] getMuligeStartPenge() {
+        return muligeStartPenge;
+    }
+
 }
