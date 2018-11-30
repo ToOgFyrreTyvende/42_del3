@@ -1,3 +1,5 @@
+package Model;
+
 import Model.Spiller;
 import org.junit.jupiter.api.Test;
 
