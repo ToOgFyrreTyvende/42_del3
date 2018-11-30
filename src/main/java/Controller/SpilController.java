@@ -48,7 +48,7 @@ public class SpilController{
 
         Spiller muligSpiller = spil.spilTur();
 
-        if (muligSpiller != null){
+        if (muligSpiller != null && !this.spil.isAfsluttet()){
             opdaterUIspiller(muligSpiller, forrigeFelt);
             view.setTerning(muligSpiller.getSidstSlaaet());
             view.setCenterTekst(muligSpiller.toString());

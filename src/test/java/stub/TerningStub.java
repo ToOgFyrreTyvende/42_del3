@@ -6,10 +6,14 @@ import Model.Terning;
  * terningStub
  */
 public class TerningStub extends Terning {
+    int testRes;
+
+    public TerningStub(int testRes) {
+        this.testRes = testRes;
+    }
 
     @Override
     public int getResultat() {
-        int testRes = 1;
         return testRes;
     }
 }

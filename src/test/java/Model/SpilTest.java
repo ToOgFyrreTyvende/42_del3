@@ -22,7 +22,7 @@ class SpilTest {
 
         testBoard = new GameBoard();
 
-        testTerning = new TerningStub();
+        testTerning = new TerningStub(1);
 
         testSpil = new Spil(testBoard, testNavne);
     }

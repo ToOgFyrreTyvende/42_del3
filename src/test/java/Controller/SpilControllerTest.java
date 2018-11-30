@@ -8,6 +8,7 @@ import View.GameView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import stub.TerningStub;
+import stub.ViewStub;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,17 +29,15 @@ class SpilControllerTest {
         testNavne[1] = "dummyTwo";
 
         testBoard = new GameBoard();
-        testSpil = new Spil(testBoard, testNavne);
-        //testView = new GameGUIView(); // TODO: Lav en stub klasse for at undgå tests der åbner et GUI
+
+        testView = new ViewStub();
+        testSpilCtrl = new SpilController(testBoard, testView);
 
     }
 
     @Test
-    void spillerTurTest() {
-    }
+    void spilAktivtTest() {
 
-    @Test
-    void spilAktivtTest() { // Fjern // efter stubklassen er blevet lavet
-        //assertTrue(!testSpil.isAfsluttet());
+        assertTrue(!testSpilCtrl.spilAktivt());
     }
 }
