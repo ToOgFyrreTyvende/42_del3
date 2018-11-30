@@ -2,14 +2,14 @@ package Model.Felter;
 
 import Model.Felt;
 import Model.Spiller;
+import gui_fields.GUI_Chance;
 import gui_fields.GUI_Field;
-import gui_fields.GUI_Start;
 
 import java.awt.*;
 
-public class StartFelt extends Felt {
+public class ChanceFelt extends Felt {
 
-    public StartFelt(String navn, String subText, String beskrivelse) {
+    public ChanceFelt(String navn, String subText, String beskrivelse) {
         super(navn, subText, beskrivelse);
     }
 
@@ -31,10 +31,12 @@ public class StartFelt extends Felt {
 
     @Override
     public GUI_Field lavGUIFelt() {
-        return new GUI_Start(this.getNavn(), this.getSubText(), this.getBeskrivelse(), Color.red, Color.BLACK);
+        return new GUI_Chance("?", this.getSubText(), this.getBeskrivelse(), Color.white, Color.black);
     }
 
     @Override
     public void feltHandling(Spiller spiller) {
+        spiller.setSidsteHandling(spiller.getSidsteHandling() + "\n - Er landet på et chancekort.");
+        spiller.setChanceFelt(true);
     }
 }
