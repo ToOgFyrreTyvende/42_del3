@@ -61,7 +61,6 @@ public class SpilController{
         }else {
             view.setCenterTekst("SPILLET ER AFSLUTTET\nVinderen er spiller: " +
                     this.spil.getVinder().getNavn());
-            this.spil.setAfsluttet(true);
             view.slutTekst("spillet er slut!");
         }
     }

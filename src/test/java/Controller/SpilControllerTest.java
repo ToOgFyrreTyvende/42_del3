@@ -14,11 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SpilControllerTest {
     // Variables
-    Spil testSpil;
     String[] testNavne;
     GameView testView;
     GameBoard testBoard;
-    TerningStub testTerning;
     SpilController testSpilCtrl;
 
 
@@ -29,21 +27,15 @@ class SpilControllerTest {
         testNavne[1] = "dummyTwo";
 
         testBoard = new GameBoard();
-        testSpil = new Spil(testBoard, testNavne);
+
         testView = new ViewStub();
-        testTerning = new TerningStub(6);
         testSpilCtrl = new SpilController(testBoard, testView);
 
-        testSpil.setTerning(testTerning);
-    }
-
-    @Test
-    void spillerTurTest() {
     }
 
     @Test
     void spilAktivtTest() {
 
-        assertTrue(testSpil.isAfsluttet());
+        assertTrue(!testSpilCtrl.spilAktivt());
     }
 }
