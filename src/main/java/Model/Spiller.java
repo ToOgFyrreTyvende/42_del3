@@ -1,7 +1,5 @@
 package Model;
 
-import gui_fields.GUI_Player;
-
 /**
  * ------------------------------------------------------------/
  * Denne klasse kaldes for at oprette en ny spiller
@@ -13,22 +11,15 @@ import gui_fields.GUI_Player;
  // PLACEHOLDER! Skift Model.Spiller til at initialisere ÉN spiller
  // af gangen.
 public class Spiller {
-    private int felt = 0;
+    private int felt;
     private String navn;
-    private int pengebeholdning = 1;
-    private int sidstSlaaet = 0;
-    private boolean iFaengsel = false;
-
-    private ChanceKort chanceKort;
-    private boolean chanceFelt = false;
-    private boolean friFaengsel = false;
-
-    private String sidsteHandling = "";
+    private Konto konto;
 
     // #----------Constructor----------#
     public Spiller(String navn){
         // Vælg spiller navn selv
         this.navn = navn;
+        this.konto = new Konto();
     }
 
     // #------------Get/Set------------#
@@ -42,79 +33,22 @@ public class Spiller {
         return felt;
     }
 
-    public boolean isiFaengsel() {
-        return iFaengsel;
-    }
-
-    public void setiFaengsel(boolean iFaengsel) {
-        this.iFaengsel = iFaengsel;
-    }
-
     public int getPenge(){
-        return this.pengebeholdning;
+        return konto.getPenge();
     }
 
     public void setPenge(int penge){
-        this.pengebeholdning = penge;
+        this.konto.setPenge(penge); 
     }
-
-    public void setSidstSlaaet(int sidstSlaaet) {
-        this.sidstSlaaet = sidstSlaaet;
-    }
-
-    public void setChaneKort(ChanceKort chanceKort) {
-        this.chanceKort = chanceKort;
-    }
-
-    public void setFriFaengsel(boolean friFaengsel) {
-        this.friFaengsel = friFaengsel;
-    }
-
-    public void setChanceFelt(boolean chanceFelt) {
-        this.chanceFelt = chanceFelt;
-    }
-
+    
     // #--------------Get--------------#
     public String getNavn(){
         // Returnerer spiller navn
         return navn;
     }
 
-    public int getSidstSlaaet() {
-        return sidstSlaaet;
-    }
-
-    public ChanceKort getChanceKort() {
-        return chanceKort;
-    }
-
-    public boolean isFriFaengsel() {
-        return friFaengsel;
-    }
-
-    public boolean isChanceFelt() {
-        return chanceFelt;
-    }
-
-    public String getSidsteHandling() {
-        return sidsteHandling;
-    }
-
     // #-------------Other-------------#
     public void addPenge(int penge){
-        this.pengebeholdning = pengebeholdning + penge;
-    }
-
-    public void setSidsteHandling(String sidsteHandling) {
-        this.sidsteHandling = sidsteHandling;
-    }
-
-    @Override
-    public String toString() {
-        if (this.sidsteHandling.equals("")) {
-            return "Spiller: " + this.getNavn() + " er landet på " + this.getFelt();
-        }else {
-            return "Spiller: " + this.getNavn() + " " + this.getSidsteHandling();
-        }
+        this.konto.indsaetpenge(penge);
     }
 }
