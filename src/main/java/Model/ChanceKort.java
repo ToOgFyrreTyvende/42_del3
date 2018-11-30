@@ -54,7 +54,6 @@ abstract public class ChanceKort {
                         "Hvis det er ledig, får du det GRATIS! Ellers skal du BETALE leje til ejeren",
                         "GUL", Color.cyan)
         };
-
         return temp;
     }
 
