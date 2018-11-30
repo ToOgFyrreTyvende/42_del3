@@ -50,7 +50,7 @@ public class SpilController{
 
         Spiller muligSpiller = spil.spilTur();
 
-        if (muligSpiller != null){
+        if (muligSpiller != null && !this.spil.isAfsluttet()){
             opdaterUIspiller(muligSpiller, forrigeFelt);
             view.setTerning(muligSpiller.getSidstSlaaet());
             view.setCenterTekst(muligSpiller.toString());
@@ -61,6 +61,7 @@ public class SpilController{
         }else {
             view.setCenterTekst("SPILLET ER AFSLUTTET\nVinderen er spiller: " +
                     this.spil.getVinder().getNavn());
+            this.spil.setAfsluttet(true);
             view.slutTekst("spillet er slut!");
         }
     }
