@@ -69,10 +69,6 @@ public class GameBoard {
         return tempFelter;
     }
 
-    public int getFeltPenge(int felt){
-        return 2;
-    }
-
     public Felt[] getFelterModel(){
         return felterModel;
     }

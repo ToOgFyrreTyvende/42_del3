@@ -3,8 +3,6 @@ package Controller;
 import Model.GameBoard;
 import Model.Spil;
 import Model.Spiller;
-import Model.Feltliste;
-import View.GameGUIView;
 import View.GameView;
 
 public class SpilController{
@@ -67,13 +65,6 @@ public class SpilController{
 
     private void opdaterUIspiller(Spiller spiller, int forrigeFelt){
         view.opdaterSpillerData(spiller, forrigeFelt);
-    }
-
-
-    // #--------------Get--------------#
-
-    public boolean spilAktivt(){
-        return !spil.isAfsluttet();
     }
 
 }

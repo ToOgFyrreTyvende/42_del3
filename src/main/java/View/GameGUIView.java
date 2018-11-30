@@ -51,17 +51,14 @@ public class GameGUIView extends GameView {
     public void setSpillere(Spiller ... spillereModel) {
         Color[] farver = {Color.blue, Color.red, Color.yellow, Color.green};
 
-        Random rand = new Random();
         for (int i = 0; i < spillereModel.length; i++){
-            //System.out.println(spillereModel[i].getNavn());
-
 
             GUI_Car tempcar = new GUI_Car();
             tempcar.setPrimaryColor(farver[i]);
 
             GUI_Player tempSpillerGUI = new GUI_Player(spillereModel[i].getNavn(),
                                         spillereModel[i].getPenge(), tempcar);
-
+            
             this.spillere.put(spillereModel[i], tempSpillerGUI);
             ui.addPlayer(this.spillere.get(spillereModel[i]));
         }
@@ -74,7 +71,6 @@ public class GameGUIView extends GameView {
 
     @Override
     public void setSpillerFelt(Spiller spillerModel, int felt) {
-        //System.out.println(this.felter[0]);
         int feltIndex = (felt % 24) -1;
 
         GUI_Player spillerGUI = this.spillere.get(spillerModel);
@@ -109,7 +105,6 @@ public class GameGUIView extends GameView {
         this.spillere.forEach((spillerModel, spillerBrik) ->
                                 spillerBrik.setBalance(spillerModel.getPenge()));
 
-        //setSpillerPenge(spiller, spiller.getPenge());
     }
 
     @Override

@@ -32,7 +32,6 @@ public class StartFelt extends Felt {
     @Override
     public GUI_Field lavGUIFelt() {
         return new GUI_Start(this.getNavn(), this.getSubText(), this.getBeskrivelse(), Color.red, Color.BLACK);
-//String title, String subText, String description, Color bgColor, Color fgColor
     }
 
     @Override

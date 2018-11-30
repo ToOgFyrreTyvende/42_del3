@@ -30,7 +30,6 @@ class SpilControllerTest {
         testBoard = new GameBoard();
         testSpil = new Spil(testBoard, testNavne);
         //testView = new GameGUIView(); // TODO: Lav en stub klasse for at undgå tests der åbner et GUI
-        testSpilCtrl = new SpilController();
 
     }
 
