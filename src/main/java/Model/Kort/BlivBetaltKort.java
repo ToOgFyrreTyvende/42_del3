@@ -13,6 +13,7 @@ public class BlivBetaltKort extends ChanceKort {
         this.andre = andre;
     }
 
+
     public int getPenge() {
         return penge;
     }

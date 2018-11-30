@@ -11,6 +11,7 @@ public class RykKort extends ChanceKort {
         this.feltIndex = feltIndex;
     }
 
+
     @Override
     public void kortHandling(Spiller spiller) {
         super.kortHandling(spiller);

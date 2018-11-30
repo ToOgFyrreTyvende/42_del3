@@ -11,6 +11,7 @@ public class BetalKort extends ChanceKort {
         this.penge = penge;
     }
 
+
     @Override
     public void kortHandling(Spiller spiller) {
         spiller.setSidsteHandling(spiller.getSidsteHandling() + "\n - Har ved chancekort betalt " + this.penge + "M til banken");
