@@ -13,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SpilControllerTest {
     // Variables
-    Spil testSpil;
-    String[] testNavne;
+    private Spil testSpil;
+    private String[] testNavne;
     GameView testView;
-    GameBoard testBoard;
+    private GameBoard testBoard;
     TerningStub testTerning;
     SpilController testSpilCtrl;
 
