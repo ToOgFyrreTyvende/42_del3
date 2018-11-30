@@ -120,8 +120,6 @@ public class Spil {
                 return aktivSpiller.getFelt();
             }
 
-        }else {
-
         }
 
         return feltId;
