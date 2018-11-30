@@ -25,7 +25,8 @@ public class spillerTest {
     void spillerKontoTest(){
         int testEkstraPenge = 100;
         spiller.addPenge(testEkstraPenge);
-        // Vi tilføjer 1000 til ekstra pengene, siden en spiller starter med 1000 guld
+        // Vi tilføjer 1 til ekstra pengene, siden en spiller starter med kun at have 1 M
+        // - før spillet tjekker hvor mange spillere der er og sætter deres pengeværdi udfra dette
         assertEquals(testEkstraPenge + 1, spiller.getPenge());
     }
 
