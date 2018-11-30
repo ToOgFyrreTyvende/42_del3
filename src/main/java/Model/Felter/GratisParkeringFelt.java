@@ -3,13 +3,14 @@ package Model.Felter;
 import Model.Felt;
 import Model.Spiller;
 import gui_fields.GUI_Field;
-import gui_fields.GUI_Jail;
+import gui_fields.GUI_Refuge;
+import gui_fields.GUI_Start;
 
 import java.awt.*;
 
-public class FaengselFelt extends Felt {
+public class GratisParkeringFelt extends Felt {
 
-    public FaengselFelt(String navn, String subText, String beskrivelse) {
+    public GratisParkeringFelt(String navn, String subText, String beskrivelse) {
         super(navn, subText, beskrivelse);
     }
 
@@ -31,12 +32,11 @@ public class FaengselFelt extends Felt {
 
     @Override
     public GUI_Field lavGUIFelt() {
-        return new GUI_Jail("default", this.getNavn(), this.getSubText(),
-                this.getBeskrivelse(), Color.white, Color.BLACK);
+        return new GUI_Refuge("default", this.getNavn(), this.getSubText(), this.getBeskrivelse(), Color.white, Color.black);
+
     }
 
     @Override
     public void feltHandling(Spiller spiller) {
-
     }
 }

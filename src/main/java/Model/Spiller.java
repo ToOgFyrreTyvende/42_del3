@@ -17,6 +17,11 @@ public class Spiller {
     private String navn;
     private int pengebeholdning = 1;
     private int sidstSlaaet = 0;
+    private boolean iFaengsel = false;
+
+    private ChanceKort chanceKort;
+    private boolean chanceFelt = false;
+    private boolean friFaengsel = false;
 
     // #----------Constructor----------#
     public Spiller(String navn){
@@ -35,6 +40,14 @@ public class Spiller {
         return felt;
     }
 
+    public boolean isiFaengsel() {
+        return iFaengsel;
+    }
+
+    public void setiFaengsel(boolean iFaengsel) {
+        this.iFaengsel = iFaengsel;
+    }
+
     public int getPenge(){
         return this.pengebeholdning;
     }
@@ -47,6 +60,18 @@ public class Spiller {
         this.sidstSlaaet = sidstSlaaet;
     }
 
+    public void setChaneKort(ChanceKort chanceKort) {
+        this.chanceKort = chanceKort;
+    }
+
+    public void setFriFaengsel(boolean friFaengsel) {
+        this.friFaengsel = friFaengsel;
+    }
+
+    public void setChanceFelt(boolean chanceFelt) {
+        this.chanceFelt = chanceFelt;
+    }
+
     // #--------------Get--------------#
     public String getNavn(){
         // Returnerer spiller navn
@@ -55,6 +80,18 @@ public class Spiller {
 
     public int getSidstSlaaet() {
         return sidstSlaaet;
+    }
+
+    public ChanceKort getChanceKort() {
+        return chanceKort;
+    }
+
+    public boolean isFriFaengsel() {
+        return friFaengsel;
+    }
+
+    public boolean isChanceFelt() {
+        return chanceFelt;
     }
 
     // #-------------Other-------------#

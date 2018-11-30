@@ -2,6 +2,8 @@ package Model.Felter;
 
 import Model.Felt;
 import Model.Spiller;
+import gui_fields.GUI_Field;
+import gui_fields.GUI_Street;
 
 import java.awt.*;
 
@@ -18,8 +20,11 @@ public class EjendomFelt extends Felt {
     private Color farve;
 
     // #----------Constructor----------#
-    public EjendomFelt(String navn, String subText, String beskrivelse) {
+    public EjendomFelt(String navn, String subText, String beskrivelse, int pris, Color farve) {
         super(navn, subText, beskrivelse);
+        this.pris = pris;
+        this.farve = farve;
+        this.leje = pris;
     }
 
     // #--------------Get--------------#
@@ -38,6 +43,58 @@ public class EjendomFelt extends Felt {
         return super.getBeskrivelse();
     }
 
+    @Override
+    public GUI_Field lavGUIFelt() {
+        return new GUI_Street(this.getNavn(), this.getSubText(),
+                this.getBeskrivelse(), this.getPris() + "M", this.getFarve(), Color.black);
+
+    }
+
+    @Override
+    public void feltHandling(Spiller spiller) {
+        if (this.erEjet()){
+            System.out.println("[INFO] " + spiller.getNavn() + " Har betalt " +
+                    this.getPris() + " til " +
+                    this.getEjer().getNavn());
+            betalTilSpillerFelt(spiller);
+        }else{
+            System.out.println("[INFO] " + spiller.getNavn() + " Har købt " +
+                    this.getNavn() + " for " +
+                    this.getPris());
+            koebFelt(spiller);
+        }
+    }
+
+    public void feltHandling(Spiller spiller, int pris) {
+        if (this.erEjet()){
+            System.out.println("[INFO] " + spiller.getNavn() + " Har betalt " +
+                    this.getPris() + " til " +
+                    this.getEjer().getNavn());
+            betalTilSpillerFelt(spiller);
+        }else{
+            System.out.println("[INFO] " + spiller.getNavn() + " Har gratis fået " +
+                    this.getNavn());
+            if (pris == 0)
+                this.setEjer(spiller);
+        }
+    }
+
+
+
+    public void betalTilSpillerFelt(Spiller spiller){
+        Spiller ejer = this.getEjer();
+        int betaling = this.getLeje();
+        spiller.addPenge( - betaling);
+        ejer.addPenge(betaling);
+    }
+
+    private void koebFelt(Spiller spiller) {
+        int betaling = this.getPris();
+        spiller.addPenge( - betaling);
+        this.setEjer(spiller);
+    }
+
+
     public int getPris() {
         return pris;
     }
@@ -48,6 +105,11 @@ public class EjendomFelt extends Felt {
 
     public Spiller getEjer() {
         return ejer;
+    }
+
+    public boolean erEjet(){
+        Spiller ejer = this.getEjer();
+        return ejer != null;
     }
 
     public Color getFarve() {

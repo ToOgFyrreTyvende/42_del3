@@ -1,10 +1,16 @@
 package View;
 
+import Model.GameBoard;
 import Model.Spil;
 import Model.Spiller;
 
 public abstract class GameView {
 
+    protected GameBoard spilBraet;
+
+    public GameView(GameBoard spilBraet) {
+        this.spilBraet = spilBraet;
+    }
 
     public abstract void setSpillere(Spiller[] spillere);
     public abstract int getAntalSpillere();
@@ -21,4 +27,11 @@ public abstract class GameView {
 
     public abstract void setTerning(int slag);
 
+    public GameBoard getSpilBraet() {
+        return spilBraet;
+    }
+
+    public void setSpilBraet(GameBoard spilBraet) {
+        this.spilBraet = spilBraet;
+    }
 }

@@ -1,5 +1,12 @@
 package Model;
 
+import Model.Felter.EjendomFelt;
+import Model.Felter.TilFaengselFelt;
+import Model.Kort.BetalKort;
+import Model.Kort.BlivBetaltKort;
+import Model.Kort.FaengselKort;
+import Model.Kort.GratisFeltKort;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +18,9 @@ import java.util.List;
  */
 
 public class Spil {
+    private final int RUNDE_PENGE = 2;
+    private final int FAENGSEL_PRIS = 1;
+
     private int[] muligeStartPenge = {20, 18, 16};
     private int startPenge;
 
@@ -27,7 +37,7 @@ public class Spil {
 
     // #----------Constructor----------#
 
-    public Spil(String[] spillerNavne){
+    public Spil(GameBoard sb, String[] spillerNavne){
         opretSpillere(spillerNavne);
 
         //Kodedelen med runder er taget fra vores forrige opgave: 42_del1
@@ -35,10 +45,10 @@ public class Spil {
         runder.add(new Runde());
         terning = new Terning();
 
-        this.spilBraet = new GameBoard();
-
         aktivSpiller = spillere[0];
         aktivRunde = runder.get(runder.size()-1);
+
+        spilBraet = sb;
 
         afsluttet = false;
     }
@@ -65,12 +75,11 @@ public class Spil {
             int[] tempTur = {slag, nuIndex};
 
             Spiller _aktivSpiller = aktivSpiller;
+            int feltId = (aktivSpiller.getFelt() + slag) % 24;
 
-            int nyFelt = (aktivSpiller.getFelt() + slag) % 24;
+            feltId = spilRegler(feltId);
 
-            aktivSpiller.setFelt(nyFelt);
-            aktivSpiller.addPenge(spilBraet.getFeltPenge(nyFelt));
-            aktivSpiller.setSidstSlaaet(slag);
+            opdaterAktivSpillerMedSlag(feltId, slag);
 
             aktivRunde.tilfoejTur(tempTur);
             aktivSpiller = spillere[nyIndex];
@@ -80,6 +89,97 @@ public class Spil {
             return _aktivSpiller;
         }else{
             return null;
+        }
+    }
+
+    private int spilRegler(int feltId) {
+        if (aktivSpiller.isiFaengsel()){
+            if (!aktivSpiller.isFriFaengsel()){
+                System.out.println("[INFO] " + aktivSpiller.getNavn() + " Har betalt " +
+                        FAENGSEL_PRIS + " For at komme ud af fængslet");
+                aktivSpiller.addPenge(- FAENGSEL_PRIS);
+            }else{
+                System.out.println("[INFO] " + aktivSpiller.getNavn() + " Kom ud af fængslet med deres 'frikort'");
+            }
+
+            aktivSpiller.setiFaengsel(false);
+            checkRunde();
+        }
+
+        if (!afsluttet){
+            if (feltId < aktivSpiller.getFelt()){
+                System.out.println("[INFO] " + aktivSpiller.getNavn() + " har passeret start. +2M");
+                tilFoejStartPenge(aktivSpiller);
+            }
+            Felt landetFelt = this.getSpilBraet().getFeltModel(feltId);
+            landetFelt.feltHandling(aktivSpiller);
+            //chancekort skal tilføjes...
+
+            if (aktivSpiller.isChanceFelt()){
+                chanceFeltHandling(aktivSpiller);
+                return aktivSpiller.getFelt();
+            }
+
+        }else {
+
+        }
+
+        return feltId;
+    }
+
+    private void chanceFeltHandling(Spiller aktivSpiller) {
+        aktivSpiller.setChanceFelt(false);
+
+        ChanceKort kort = this.getSpilBraet().tilfaeldigKort();
+        aktivSpiller.setChaneKort(kort);
+
+        aktivSpiller.getChanceKort().kortHandling(aktivSpiller);
+
+        if (kort instanceof BlivBetaltKort){
+            if (((BlivBetaltKort) kort).isAndre()){
+                betaltAfAndre(((BlivBetaltKort) kort).getPenge());
+            }else{
+                aktivSpiller.addPenge(((BlivBetaltKort) kort).getPenge());
+            }
+        }else if(kort instanceof GratisFeltKort){
+            int feltIndex = this.getSpilBraet().taettestFarve(
+                    aktivSpiller.getFelt(),
+                    ((GratisFeltKort) kort).getFarve());
+            Felt tempFelt = this.getSpilBraet().getFelterModel()[feltIndex];
+
+            if (tempFelt instanceof EjendomFelt){
+                ((EjendomFelt) tempFelt).feltHandling(aktivSpiller, 0);
+                aktivSpiller.setFelt(feltIndex);
+            }
+
+
+        }
+        this.aktivSpiller.setChaneKort(null);
+    }
+
+    private void betaltAfAndre(int penge) {
+        // Vi trækker penge fra alle spillere
+        for (Spiller spiller : spillere) {
+            spiller.addPenge(- penge);
+        }
+
+        // SIden vi fjerner antallet af penge fra alle spilelre. skal det tilføjes mængden af penge
+        // ganget med alle spillere til stede for at spilleren får den rigtige mængde
+        int antalAtFaa = penge * spillere.length - 1;
+        aktivSpiller.addPenge(antalAtFaa);
+    }
+
+    private void tilFoejStartPenge(Spiller spiller) {
+        spiller.addPenge(RUNDE_PENGE);
+    }
+
+    private void opdaterAktivSpillerMedSlag(int feltId, int slag) {
+        if (aktivSpiller.isiFaengsel()){
+            aktivSpiller.setFelt(this.getSpilBraet().getFaengsel());
+            aktivSpiller.setSidstSlaaet(slag);
+        }else{
+            aktivSpiller.setFelt(feltId);
+            aktivSpiller.setSidstSlaaet(slag);
         }
     }
 
@@ -179,4 +279,13 @@ public class Spil {
     public void setStartPenge(int startPenge) {
         this.startPenge = startPenge;
     }
+
+    public GameBoard getSpilBraet() {
+        return spilBraet;
+    }
+
+    public void setSpilBraet(GameBoard spilBraet) {
+        this.spilBraet = spilBraet;
+    }
+
 }
