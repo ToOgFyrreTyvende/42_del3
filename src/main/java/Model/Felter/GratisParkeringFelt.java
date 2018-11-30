@@ -38,5 +38,6 @@ public class GratisParkeringFelt extends Felt {
 
     @Override
     public void feltHandling(Spiller spiller) {
+        spiller.setSidsteHandling(" - Har fået gratis parkering. Intet sker.");
     }
 }

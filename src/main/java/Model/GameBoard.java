@@ -26,7 +26,7 @@ public class GameBoard {
     }
 
     private Felt[] lavFelter() {
-        Felt[] tempFelter = {
+        return new Felt[]{
                 new StartFelt("Start", "2M", "Få 2M når du passerer!"),
                 new EjendomFelt("Burgerbaren", "Pris: 1M", "Burgerbaren", 1, Color.gray),
                 new EjendomFelt("Pizzahuset", "Pris: 1M", "Pizzahuset", 1, Color.gray),
@@ -66,11 +66,6 @@ public class GameBoard {
                 new EjendomFelt("Vandlandet", "Pris: 5M", "Vandlandet", 5, Color.cyan),
                 new EjendomFelt("Strandpromenaden", "Pris: 5M", "Strandpromenaden", 5, Color.cyan)
         };
-        return tempFelter;
-    }
-
-    public int getFeltPenge(int felt){
-        return 2;
     }
 
     public Felt[] getFelterModel(){
@@ -107,7 +102,7 @@ public class GameBoard {
         this.chanceKort = chanceKort;
     }
 
-    public ChanceKort tilfaeldigKort(){
+    ChanceKort tilfaeldigKort(){
         float _random1 = (float) Math.random();
         int _random2 = (int) (_random1 * (this.getChanceKort().length - 1));
         int nr = _random2 + 1;

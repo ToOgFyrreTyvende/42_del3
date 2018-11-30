@@ -240,68 +240,25 @@ public class Spil {
         return aktivSpiller;
     }
 
-    public void setAktivSpiller(Spiller aktivSpiller) {
-        this.aktivSpiller = aktivSpiller;
-    }
-
-    public Terning getTerning() {
-        return terning;
-    }
-
     public void setTerning(Terning terning) {
         this.terning = terning;
     }
 
-    public List<Runde> getRunder() {
-        return runder;
-    }
-
-    public void setRunder(List<Runde> runder) {
-        this.runder = runder;
-    }
-
-    public Runde getAktivRunde() {
-        return aktivRunde;
-    }
-
-    public void setAktivRunde(Runde aktivRunde) {
-        this.aktivRunde = aktivRunde;
-    }
-
-    public boolean isAfsluttet() {
-        return afsluttet;
-    }
 
     public void setAfsluttet(boolean afsluttet) {
         this.afsluttet = afsluttet;
-    }
-
-    public int getStartPenge() {
-        return startPenge;
-    }
-
-    public void setStartPenge(int startPenge) {
-        this.startPenge = startPenge;
     }
 
     public GameBoard getSpilBraet() {
         return spilBraet;
     }
 
-    public void setSpilBraet(GameBoard spilBraet) {
-        this.spilBraet = spilBraet;
-    }
 
     public int getRUNDE_PENGE() {
         return RUNDE_PENGE;
     }
 
-    public int getFAENGSEL_PRIS() {
-        return FAENGSEL_PRIS;
+    public boolean isAfsluttet() {
+        return afsluttet;
     }
-
-    public int[] getMuligeStartPenge() {
-        return muligeStartPenge;
-    }
-
 }

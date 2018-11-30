@@ -9,9 +9,6 @@ import gui_fields.GUI_Player;
  * kørsel af spillet
  * ------------------------------------------------------------/
  */
-
- // PLACEHOLDER! Skift Model.Spiller til at initialisere ÉN spiller
- // af gangen.
 public class Spiller {
     private int felt = 0;
     private String navn;
@@ -112,7 +109,7 @@ public class Spiller {
     @Override
     public String toString() {
         if (this.sidsteHandling.equals("")) {
-            return "Spiller: " + this.getNavn() + " er landet på " + this.getFelt();
+            return "Spiller: " + this.getNavn() + " er landet på felt nr. " + this.getFelt() + 1;
         }else {
             return "Spiller: " + this.getNavn() + " " + this.getSidsteHandling();
         }

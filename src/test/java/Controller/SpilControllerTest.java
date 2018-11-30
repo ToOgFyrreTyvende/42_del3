@@ -14,9 +14,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SpilControllerTest {
     // Variables
-    String[] testNavne;
+    private Spil testSpil;
+    private String[] testNavne;
     GameView testView;
-    GameBoard testBoard;
+    private GameBoard testBoard;
+    TerningStub testTerning;
     SpilController testSpilCtrl;
 
 
@@ -35,7 +37,6 @@ class SpilControllerTest {
 
     @Test
     void spilAktivtTest() {
-
-        assertTrue(!testSpilCtrl.spilAktivt());
+        assertTrue(testSpilCtrl.getSpil().isAfsluttet());
     }
 }

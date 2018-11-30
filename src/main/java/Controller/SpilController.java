@@ -3,8 +3,6 @@ package Controller;
 import Model.GameBoard;
 import Model.Spil;
 import Model.Spiller;
-import Model.Feltliste;
-import View.GameGUIView;
 import View.GameView;
 
 public class SpilController{
@@ -59,7 +57,8 @@ public class SpilController{
 
             spillerTur(spil.getAktivSpiller());
         }else {
-            view.setCenterTekst("SPILLET ER AFSLUTTET\nVinderen er spiller: " +
+            view.opdaterSpillerData(spiller, forrigeFelt);
+            view.setCenterTekst("SPILLET ER AFSLUTTET\nVinderen er: " +
                     this.spil.getVinder().getNavn());
             view.slutTekst("spillet er slut!");
         }
@@ -69,11 +68,7 @@ public class SpilController{
         view.opdaterSpillerData(spiller, forrigeFelt);
     }
 
-
-    // #--------------Get--------------#
-
-    public boolean spilAktivt(){
-        return !spil.isAfsluttet();
+    public Spil getSpil() {
+        return spil;
     }
-
 }
