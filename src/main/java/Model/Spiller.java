@@ -74,6 +74,7 @@ public class Spiller {
     // #--------------Get--------------#
     public String getNavn(){
         // Returnerer spiller navn
+
         return navn;
     }
 
