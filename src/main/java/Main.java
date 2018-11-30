@@ -1,5 +1,8 @@
 import Controller.SpilController;
 import Model.*;
+import View.GameGUIView;
+import View.GameView;
+
 /**
  * ------------------------------------------------------------/ 
  * Dette er hovedklassen som starter spillet.
@@ -8,11 +11,10 @@ import Model.*;
 
 public class Main {
     public static void main(String[] args) {
-        SpilController spil = new SpilController();
+        GameBoard braet = new GameBoard();
+        GameGUIView view = new GameGUIView();
+        SpilController spil = new SpilController(braet, view);
 
-        Terning terning = new Terning();
-        
-        System.out.println(terning.getResultat());        
     }
 
 }

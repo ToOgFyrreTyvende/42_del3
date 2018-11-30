@@ -9,10 +9,6 @@ public abstract class GameView {
 
     protected GameBoard spilBraet;
 
-    public GameView(GameBoard spilBraet) {
-        this.spilBraet = spilBraet;
-    }
-
     public abstract void setSpillere(Spiller[] spillere);
     public abstract int getAntalSpillere();
     public abstract String getSpillerNavn(String tekst);
@@ -27,8 +23,6 @@ public abstract class GameView {
     public abstract void slutTekst(String tekst);
 
     public abstract void setTerning(int slag);
-
-
 
     public abstract void setCenterTekst(String tekst);
 

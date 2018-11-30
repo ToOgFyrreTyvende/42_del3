@@ -19,8 +19,9 @@ public class GameGUIView extends GameView {
 
     private HashMap<Spiller, GUI_Player> spillere = new HashMap<>();
 
-    public GameGUIView(GameBoard sb) {
-        super(sb);
+    @Override
+    public void setSpilBraet(GameBoard spilBraet) {
+        super.setSpilBraet(spilBraet);
         this.felter = getSpilBraet().getFelterGUI();
         this.ui = new GUI(felter);
     }

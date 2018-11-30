@@ -13,9 +13,11 @@ public class SpilController{
     private GameBoard spilBraet;
     
     // #----------Constructor----------#
-    public SpilController(){
-        this.spilBraet = new GameBoard();
-        this.view = new GameGUIView(this.spilBraet);
+    public SpilController(GameBoard braet, GameView view){
+        this.spilBraet = braet;
+        this.view = view;
+        this.view.setSpilBraet(this.spilBraet);
+
         initialiserSpil();
         spillerTur(spil.getAktivSpiller());
 

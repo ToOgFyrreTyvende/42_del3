@@ -9,8 +9,7 @@ public class ViewStub extends GameView {
     private Spiller[] spillere;
     private final int SPILLERE_ANTAL = 2;
 
-    public ViewStub(GameBoard spilBraet) {
-        super(spilBraet);
+    public ViewStub() {
     }
 
     @Override
