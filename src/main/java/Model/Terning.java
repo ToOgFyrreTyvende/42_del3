@@ -16,6 +16,7 @@ public class Terning {
     private int resultat;
     private int antalSider;
 
+
     // #----------Constructor----------#
     public Terning() {
         this.antalSider = 6;

@@ -36,7 +36,6 @@ public class Spil {
     private GameBoard spilBraet;
 
     // #----------Constructor----------#
-
     public Spil(GameBoard sb, String[] spillerNavne){
         opretSpillere(spillerNavne);
 
