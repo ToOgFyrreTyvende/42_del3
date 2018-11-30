@@ -36,6 +36,5 @@ public class StartFelt extends Felt {
 
     @Override
     public void feltHandling(Spiller spiller) {
-
     }
 }

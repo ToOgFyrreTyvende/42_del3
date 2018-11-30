@@ -18,6 +18,7 @@ public class TilFaengselFelt extends Felt {
     }
 
     // #--------------Get--------------#
+
     @Override
     public String getNavn() {
         return super.getNavn();
