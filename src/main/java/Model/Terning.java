@@ -14,20 +14,38 @@ package Model;
 
 public class Terning {
     private int resultat;
-    private int antalSider;
+    private int antalSider, antal;
 
     // #----------Constructor----------#
     public Terning() {
         this.antalSider = 6;
+        this.antal = 1;
     }
-    
-    // #--------------Get--------------#
-    public int getResultat(){ // Returner en værdi af terningen.
-        int sum = 0;
-        float _random1 = (float) Math.random();         // 0-1 float
-        int _random2 = (int) (_random1 * antalSider);   // 0-5 integer
-        resultat = _random2 + 1;                        // 1-6 integer
+    public Terning(int antalSider, int antal) {
+        this.antalSider = antalSider;
+        this.antal = antal;
+    }
 
-        return resultat;
+    // #--------------Get--------------#
+    public int[] getResultat(){ // Returner en værdi af terningen.
+        int[] kast = new int[antal+1];
+        int sum = 0;
+        for (int i = 0 ; i < antal ; i++){
+            float _random1 = (float) Math.random();         // 0-1 float
+            int _random2 = (int) (_random1 * antalSider);   // 0-5 integer
+            int random = _random2 + 1;                      // 1-6 integer
+            kast[i] = random;
+            sum += random;
+        }
+        kast[kast.length-1] = sum;
+        return kast;
+    }
+
+    public int getAntalSider() {
+        return antalSider;
+    }
+
+    public int getAntal() {
+        return antal;
     }
 }
