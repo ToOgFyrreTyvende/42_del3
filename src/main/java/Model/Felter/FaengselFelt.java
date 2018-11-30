@@ -37,6 +37,5 @@ public class FaengselFelt extends Felt {
 
     @Override
     public void feltHandling(Spiller spiller) {
-
     }
 }

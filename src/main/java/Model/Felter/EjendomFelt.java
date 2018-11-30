@@ -62,6 +62,7 @@ public class EjendomFelt extends Felt {
             System.out.println("[INFO] " + spiller.getNavn() + " Har købt " +
                     this.getNavn() + " for " +
                     this.getPris()+ "M");
+
             koebFelt(spiller);
         }
     }

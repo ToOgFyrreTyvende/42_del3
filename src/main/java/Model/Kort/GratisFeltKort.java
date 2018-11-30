@@ -13,6 +13,7 @@ public class GratisFeltKort extends ChanceKort {
         this.farve = farve;
     }
 
+
     public Color getFarve() {
         return farve;
     }

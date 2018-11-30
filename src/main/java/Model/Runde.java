@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class Runde {
     private ArrayList<int[]> ture;
 
-
     // #----------Constructor----------#
     public Runde(){
         ture = new ArrayList<>();

@@ -16,8 +16,8 @@ class TerningTest {
 
     @Test
     void getResultatTest() {
-       int testRes = testTerning1.getResultat();
-       // Tester at terningen kun giver værdier fra 1 til 6
-       assertTrue(testRes > 0 && testRes < 7);
+        int testRes = testTerning1.getResultat();
+        // Tester at terningen kun giver værdier fra 1 til 6
+        assertTrue(testRes > 0 && testRes < 7);
     }
 }

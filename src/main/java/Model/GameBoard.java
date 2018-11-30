@@ -68,6 +68,7 @@ public class GameBoard {
         };
     }
 
+
     public Felt[] getFelterModel(){
         return felterModel;
     }

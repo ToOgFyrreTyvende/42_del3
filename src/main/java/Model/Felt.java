@@ -13,6 +13,7 @@ import gui_fields.GUI_Field;
 public abstract class Felt {
     protected String navn, subText, beskrivelse;
 
+
     // #----------Constructor----------#
     public Felt(String navn, String subText, String beskrivelse){
         this.navn=navn;

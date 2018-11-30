@@ -9,6 +9,7 @@ public class FaengselKort extends ChanceKort {
         super(tekst, navn);
     }
 
+
     @Override
     public void kortHandling(Spiller spiller) {
         super.kortHandling(spiller);
